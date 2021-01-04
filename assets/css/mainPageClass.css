@@ -1,0 +1,381 @@
+/*todo добавить span в тексты и задать css для span*/
+/*span для увеличения отступов между абзацами*/
+.br{
+display: block;
+margin: 15px 0;
+}
+/*reset*/
+*{
+    box-sizing: border-box;
+}
+button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    outline: none;
+}
+/*reset<<<END>>>>*/
+
+:root {
+    --color-primary: #7e3d00;
+    --background-light: #FFF9F0;
+}
+
+html{
+    margin: 0;
+    background-color: #1a1a1a;
+    overflow: auto;
+}
+.body {
+    height: 1920px;
+    max-width: 1080px;
+    background-color: var(--background-light);
+    margin: 0 auto;
+    position: relative;
+    overflow-y: hidden;
+}
+.title-page-box {
+    display: block;
+    height: 1920px;
+    width: 1080px;
+    background: url(/assets/img/backgroundMain.jpg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: left 800ms ease-in-out;
+}
+.header {
+    background-color: var(--color-primary);
+    max-width: 1080px;
+    height: 158px;
+    margin: auto;
+}
+.header__title {
+    display: block;
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 1.3;
+    text-align: center;
+    text-transform: uppercase;
+    margin: auto;
+    padding-top: 33px;
+    max-width: 850px;
+    color: #fff9f0;
+    position: relative;
+}
+.header__title_color {
+    color: #f2e7ca;
+}
+.language-box {
+    display: block;
+    position: absolute;
+    top: 170px;
+    right: 0;
+    width: 150px;
+    height:80px;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+.language-box__elem {
+    display: inline-block;
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(126, 61, 0, 0.8);
+    padding-top: 2px;
+    margin: 10px 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+    border: rgba(126, 61, 0, 0.8) solid 3px;
+    text-align: center;
+}
+.language-box__elem_activ {
+    color: #f2e7ca;
+    background-color: var(--color-primary);
+    border: rgb(126, 61, 0) solid 3px;
+}
+.nav-title {
+    display: block;
+    width: 100%;
+    height: 1920px;
+    margin: 0;
+    padding-left: 110px;
+    padding-right: 70px;
+    padding-top: 80px;
+}
+.nav-title__box {
+    display: inline-block;
+    font-size: 0;
+    width: 440px;
+    height: auto;
+    margin: 0;
+    list-style-type:none;
+}
+.nav-title__element {
+    font-family: 'Ubuntu', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 25px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    color: #1a1a1a;
+}
+.nav-title__button {
+position: relative;
+    width: 100%;
+    text-align: left;
+}
+.nav-title__button-date{
+    display: inline-block;
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    padding-left: 20px;
+    color: var(--color-primary);
+}
+.main {
+    max-width: 1080px;
+    height: 778px;
+    margin: 35px 90px 65px 90px;
+    padding-top: 35px;
+    background-color: var(--background-light);
+}
+.main__short-biography {
+    list-style-type:none;
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 42px 0;
+    padding: 0;
+    color: #0e0e0e;
+}
+.main__img-main {
+    display: block;
+    float: left;
+    width: 224px;
+    height: 328px;
+    margin-top: 10px;
+    margin-right: 32px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.main__img-main:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    height: calc(100% + 10px);
+    width: 100%;
+    background-color: #fff9f0;
+}
+.main__text{
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 17px;
+    font-weight: 200;
+    text-align: justify;
+    line-height: 1.2;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+}
+.button-gallery {
+    display: block;
+    background-color: transparent;
+    position: relative;
+    height: 80px;
+    width: 100%;
+}
+.icon_gallery {
+    fill: #999999;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+}
+/* todo разобраться с установкой высоты для картинки */
+.main-navigation{
+    display: flex;
+    max-width: 900px;
+    border-top: #999999 solid 2px;
+    height: 94px;
+    overflow: hidden;
+    margin: auto;
+    background-color: var(--background-light);
+}
+.wrapper-vertical-menu{
+    max-width: 700px;
+    margin: auto;
+    position: relative;
+}
+.wrapper-vertical-menu__button{
+    display: none;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: calc(38% - 20px);
+    cursor: pointer;
+}
+.wrapper-vertical-menu__button-left{
+    border-bottom: solid 4px #969696;
+    border-left: solid 4px #969696;
+    -moz-transform: rotate(45deg); /* Для Firefox */
+    -ms-transform: rotate(45deg); /* Для IE */
+    -webkit-transform: rotate(45deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(45deg); /* Для Opera */
+    transform: rotate(45deg);
+}
+.wrapper-vertical-menu__button-right{
+    border-top: solid 4px #969696;
+    border-right: solid 4px #969696;
+    right: 0;
+    cursor: pointer;
+    -moz-transform: rotate(45deg); /* Для Firefox */
+    -ms-transform: rotate(45deg); /* Для IE */
+    -webkit-transform: rotate(45deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(45deg); /* Для Opera */
+    transform: rotate(45deg);
+}
+.main-navigation_vertical{
+    display: block;
+    border-top: 0;
+    height: 420px;
+    max-width: 430px;
+    position: relative;
+}
+.main-navigation__main_box{
+    display: block;
+    position: absolute;
+    left: 0;
+    font-size: 0;
+    height: 420px;
+    width: 1500px;
+    padding: 0;
+    margin: auto;
+    transition: left 800ms ease-in-out;
+    white-space: nowrap;
+}
+.main-navigation__box{
+    display: block;
+    list-style-type:none;
+    align-content: center;
+    padding: 0;
+    margin: auto;
+}
+.main-navigation__box_vertical{
+    display: inline-block;
+    width: 430px;
+    height: 420px;
+    vertical-align: top;
+    margin: 0 40px 0 0;
+}
+.main-navigation__elem{
+    display: inline-block;
+    font-family: 'Ubuntu', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 43px;
+    font-weight: 700;
+    margin: 3px 10px 0 10px;
+    color: #999999;
+    text-transform: uppercase;
+}
+.main-navigation__elem_vertical{
+    font-size: 26px;
+    padding-bottom: 5px;
+    display: block;
+    margin: 0;
+    color: #808080;
+}
+.main-navigation__button{
+    position: relative;
+    text-align: left;
+    width: 100%;
+    color: inherit;
+}
+.main-navigation_text-right-direct{
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: 200;
+    font-size: 23px;
+    position: absolute;
+    right: 0;
+    color: inherit;
+}
+.main-navigation__button:hover{
+    color: var(--color-primary);
+}
+.main-navigation__button:focus {
+    outline: none;
+}
+.footer {
+    width: 1080px;
+    position: absolute;
+    height: 410px;
+    bottom: 0;
+    left: 0;
+    background-color: #404040;
+}
+.footer__box {
+    display: block;
+    padding-top: 10px;
+    margin: 0;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+.footer__title {
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 28px;
+    font-weight: 400;
+    color: #fff9f0;
+    letter-spacing: 2px;
+    margin-top: 20px;
+}
+.footer__menu {
+    display: inline-block;
+    list-style-type:none;
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 17px;
+    font-weight: 400;
+    color: #ada79e;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    width: 420px;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    vertical-align: top;
+}
+.footer__menu-elem {
+    margin-bottom: 14px;
+}
+.footer__menu-elem_active {
+    color: #fff9f0;
+}
+.footer__text-box {
+    display: inline-block;
+    max-width: 450px;
+    margin: 3px 0 0 25px;
+    padding: 0;
+    color: #fff9f0;
+    font-family: 'Ubuntu Light', Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+.active-element{
+    color: var(--color-primary);
+}

@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Ubuntu Light';
+  src: url('Ubuntu-MI.eot'); /* IE9 Compat Modes */
+  src: url('Ubuntu-MI.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('Ubuntu-MI.woff') format('woff'), /* Modern Browsers */
+       url('Ubuntu-MI.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('Ubuntu-MI.svg#2118a5e9d275db5b5dc0f075ab469774') format('svg'); /* Legacy iOS */
+       
+  font-style:   italic;
+  font-weight:  400;
+}
+
