@@ -16,7 +16,7 @@
     }
 
     let getFirstText = () => {
-        getData('../assets/text/nameFiles.txt');
+        getData('assets/text/nameFiles.txt');
 
         //функция задержки обращения к глобальной переменной pathAll
         let repetition = setInterval(() => {
