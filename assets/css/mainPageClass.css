@@ -40,7 +40,7 @@ html{
     display: block;
     height: 1920px;
     width: 1080px;
-    background: url(/assets/img/backgroundMain.jpg);
+    background: url(assets/img/backgroundMain.jpg);
     position: absolute;
     top: 0;
     left: 0;
