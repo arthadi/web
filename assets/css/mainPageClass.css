@@ -144,7 +144,7 @@ position: relative;
 .main {
     max-width: 1080px;
     height: 778px;
-    margin: 35px 90px 65px 90px;
+    margin: 35px 90px 62px 90px;
     padding-top: 35px;
     background-color: var(--background-light);
 }
@@ -191,9 +191,8 @@ position: relative;
 }
 .button-gallery {
     display: block;
-    background-color: transparent;
     position: relative;
-    height: 80px;
+    height: 60px;
     width: 100%;
 }
 .icon_gallery {
@@ -202,7 +201,7 @@ position: relative;
     height: 70px;
     position: absolute;
     right: 0;
-    bottom: 30px;
+    bottom: 0;
 }
 /* todo разобраться с установкой высоты для картинки */
 .main-navigation{
