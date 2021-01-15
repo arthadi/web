@@ -16,13 +16,25 @@
     <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">-->
     <script defer src="assets/js/functions.js"></script>
     <script defer src="assets/js/js_in.js"></script>
-    <!--<script defer src="assets/js/js_main.js"></script>-->
     <script defer src="assets/js/jquery-1.11.3.min.js"></script>
     <script defer src="assets/js/objects.js"></script>
     <script defer src="assets/js/hupinator.js"></script>
     <script defer src="assets/js/vertical_menu_event.js"></script>
+    <script defer src="assets/js/slider.js"></script>
 </head>
 <body class="body">
+<div id="slider_1" class="js-target-slider sliderBox">
+
+    <button class="close" type="button"></button>
+
+    <button class="sliderBox__button-slider sliderBox__button-slider_left" type="button"
+            data-side="left">
+    </button>
+    <div class="sliderBox__container-pict"></div>
+    <button class="sliderBox__button-slider sliderBox__button-slider_right" type="button"
+            data-side="right">
+    </button>
+</div>
 <div class="title-page-box">
     <header class="header">
         <h1 class="header__title header__title_color">Настоятели Кирилло-Белозерского монастыря</h1>
@@ -262,7 +274,7 @@
         <img class="main__img-main" src="" alt="pict">
         <p class="main__text"></p>
     </article>
-    <button class="button-gallery" type="button">
+    <button class="button-gallery" type="button" data-century="" data-id="">
         <svg class="icon_gallery" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 453.92 452.83">
             <use xlink:href="assets/img/sprite-icon-svg.svg#icon_gallery"></use>
         </svg>

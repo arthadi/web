@@ -4,7 +4,9 @@
 |||
 Kirill.jpg
 &&
-1_2.jpg|&|Купель|&|Kupel
+icon_Kirill.jpg|&|Икона. Преподобный Кирилл Белозерский|&|icon saint Kirill Belozersky///
+icon_Kirill_01.jpg|&|Икона. Преподобный Кирилл Белозерский|&|icon saint Kirill Belozersky///
+sen.jpg|&|Сень. Часовня над местом первого поселения Кирилла|&|Sen. First place to live of Kirill.
 ||||
 2
 |||
@@ -12,7 +14,7 @@ Kirill.jpg
 |||
 1_1.jpg
 &&
-2_2.jpg|&|Икона|&|Icon///2_3.jpg|&|Царские врата|&|King gate
+
 ||||
 3
 |||
@@ -100,7 +102,7 @@ Kirill.jpg
 |||
 Kirill.jpg
 &&
-1_2.jpg|&|Купель|&|Kupel
+
 ||||
 14
 |||

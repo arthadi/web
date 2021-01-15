@@ -16,17 +16,14 @@ let getData = (addres) => {
     };
     requestForFolder.send(null);
 };
-
 // убираем перенос строк
 let deleteLineBreak = (string) => {
     return string.replace(/\r?\n/g, "");
 };
-
 // разбиваем на подразделы по делителю
 let stringDivider = (string, divider) => {
     return string.split(divider);
 };
-
 //получение выборки контента для персоны
 let getPersonData = (century, index2, mainObj) => {
     let personContent = {};
@@ -48,7 +45,9 @@ let getPersonData = (century, index2, mainObj) => {
                         personContent.galleryImgData = mainObj[century].names[indexKey].galleryImgData;
                         personContent.name = mainObj[century].names[indexKey].name;
                         personContent.date = mainObj[century].names[indexKey].date;
+                        personContent.gallariTeg = mainObj[century].names[indexKey].gallariTeg;
                         personContent.index = indexKey;
+
                         return personContent;
                     }
                 }
@@ -92,14 +91,17 @@ let arrayFromString = stringDivider(deleteLineBreak(string), divider);
         for (let q = 0; q < arrayPictGallery.length; q++) {
             let dataPictGallery = arrayPictGallery[q].split('|&|');
 
-            pathAll[i+1].galleryImgData[q] = {
+            if (dataPictGallery[0]) {
+
+                pathAll[i + 1].galleryImgData[q] = {
                     nameFile: '',
-                     0: '',
-                     1: '',
+                    0: '',
+                    1: '',
                 };
-            pathAll[i+1].galleryImgData[q].nameFile = dataPictGallery[0];
-            pathAll[i+1].galleryImgData[q][0] = dataPictGallery[1];
-            pathAll[i+1].galleryImgData[q][1] = dataPictGallery[2];
+                pathAll[i + 1].galleryImgData[q].nameFile = dataPictGallery[0];
+                pathAll[i + 1].galleryImgData[q][0] = dataPictGallery[1];
+                pathAll[i + 1].galleryImgData[q][1] = dataPictGallery[2];
+            }
         }
     }
     return true;
@@ -152,14 +154,13 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
 
     let countListsBox = personsListCreator(century, mainObj);
     let personObject = getPersonData(century, id, mainObj);
+    let galleryPicturesObject = galleryCreatorPictures (mainObj, personObject, id, century);
 
-//TODO добавить вывод для галереи и завершить переключалку с языками
-
+    selectorsObject.keyContainerForPict.innerHTML = '';
     selectorsObject.keyShortBio.innerHTML = personObject.shortBio[0][language];
     selectorsObject.keyTextArticleBox.innerHTML = personObject.mainText[0][language];
     $(selectorsObject.keyTextArticleBox).hyphenate();
     selectorsObject.keyTextHistoryBox.innerHTML = personObject.history[0][language];
-
     selectorsObject.keyImgMainBox.setAttribute('src', 'assets/img/' + personObject.mainImgData.nameFile);
 
     if (selectorsObject.keyBoxVerticalList.children.length === 0) {
@@ -181,10 +182,11 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
             selectorsObject.keyCenturyButton[i].setAttribute('disabled', 'true');
         }
     }
+    for(let i = 0; i < Object.keys(galleryPicturesObject).length; i++) {
+        selectorsObject.keyContainerForPict.append(galleryPicturesObject[i]);
+    }
     return countListsBox;
 };
-
-
 
 // Меню клик по векам
 let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
@@ -195,9 +197,7 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
 
             selectorsObject.keyBoxVerticalList.innerHTML = '';
             selectorsObject.keyBoxVerticalList.style.left = 0;
-
             let newCentury = e.target.value;
-
             id = {
                 0: newCentury,
                 1: mainObj[newCentury].names[0].id,
@@ -217,24 +217,40 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
                 selectorsObject.keyButtonFooterMenu[j].classList.remove('footer__menu-elem_active');
             }
             selectorsObject.keyButtonFooterMenu[0].classList.add('footer__menu-elem_active');
+            showHideMainSliderButton(selectorsObject, id, mainObj);
         });
     }
 };
 
 let getDataForPerson = (id, mainObject, century, index, objectSelector) => {
 
-    //TODO добавить вывод картинок в галерею
+    let personObject = getPersonData(century, id, mainObject);
 
-        objectSelector.keyTextArticleBox.innerHTML = mainObject[century].names[index].mainText[0][language];
-        $(objectSelector.keyTextArticleBox).hyphenate();
-        objectSelector.keyTextHistoryBox.innerHTML = mainObject[century].names[index].history[0][language];
-        objectSelector.keyShortBio.innerHTML = mainObject[century].names[index].shortBio[0][language];
-        objectSelector.keyImgMainBox.src = 'assets/img/' + mainObject[century].names[index].mainImgData[0].nameFile;
+    let galleryPicturesObject = galleryCreatorPictures (mainObject, personObject, id, century);
+    objectSelector.keyContainerForPict.innerHTML = '';
+    objectSelector.keyTextArticleBox.innerHTML = personObject.mainText[0][language];
+    $(objectSelector.keyTextArticleBox).hyphenate();
+    objectSelector.keyTextHistoryBox.innerHTML = personObject.history[0][language];
+    objectSelector.keyShortBio.innerHTML = personObject.shortBio[0][language];
+    objectSelector.keyImgMainBox.src = 'assets/img/' + personObject.mainImgData.nameFile;
+
+    for(let i = 0; i < Object.keys(galleryPicturesObject).length; i++) {
+        objectSelector.keyContainerForPict.append(galleryPicturesObject[i]);
+    }
+
+    if (Object.keys(personObject.gallariTeg).length === 0) {
+        objectSelector.keyButtonGallery.classList.add('hide');
+        objectSelector.keyButtonGallery.dataset.century = century;
+        objectSelector.keyButtonGallery.dataset.id = id;
+    }
+    else {
+        objectSelector.keyButtonGallery.classList.remove('hide');
+        objectSelector.keyButtonGallery.dataset.century = century;
+        objectSelector.keyButtonGallery.dataset.id = id;
+    }
 };
 
-
 let clickToPersonList = (e) => {
-
     let id = e.target.value;
     let elementFooterMenu = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].children[1].children;
 
@@ -245,7 +261,7 @@ let clickToPersonList = (e) => {
     elementFooterMenu[0].classList.add('footer__menu-elem_active');
 
 // поиск персоны и вывод её контента
-    for( thisCentury in mainObj) {
+    for( let thisCentury in mainObj) {
 
         if (mainObj.hasOwnProperty(thisCentury)) {
 
@@ -256,7 +272,6 @@ let clickToPersonList = (e) => {
                     if(mainObj[thisCentury].names[index].id === id) {
 
                         getDataForPerson(id, mainObj, thisCentury, index, objectBoxes);
-
                     }
                 }
             }
@@ -341,33 +356,3 @@ let autoAnimatePersonsList = (button, countBox, century) => {
         }
     }
 };
-
-//сепаратор строки с текстом
-// let separatorStringText1 = (allText) => {
-//     let firstArray = stringDivider(deleteLineBreak (allText), '||||');
-//     let textObject = [];
-//
-//     for (let i = 0; i <= firstArray.length; i++) {
-//         textObject[i] = stringDivider(firstArray[0 ], '|||');
-//     }
-//     for (let number in textObject) {
-//         if ( textObject.hasOwnProperty(number) ) {
-//
-//             for (let i = 0; i < textObject[number].length; i++) {
-//                 if (textObject[number][i].indexOf('||') !== -1) {
-//                     textObject[number][i] = stringDivider(textObject[number][i], '||');
-//                 }
-//                 if (textObject[number][i].indexOf('&&') !== -1) {
-//                     textObject[number][i] = stringDivider(textObject[number][i], '&&');
-//                 }
-//                 if (Array.isArray(textObject[number][i]) && +[i] === 6) {
-//
-//                     for (let j = 0; j < textObject[number][i].length; j++) {
-//                         textObject[number][i][j] = stringDivider(textObject[number][i][j], '&&');
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     return textObject;
-// };
