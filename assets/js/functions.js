@@ -161,23 +161,15 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
     selectorsObject.keyImgMainBox.setAttribute('src', 'assets/img/' + personObject.mainImgData.nameFile);
     selectorsObject.keyFooterMenu.dataset.id = id;
     selectorsObject.keyFooterMenu.dataset.century = century;
-
-
-
-
-
+    
     let heightWrapperTextArticle = selectorsObject.keyTextArticleWrapper.offsetHeight;
     let heightBoxTextArticle = selectorsObject.keyTextArticleWrapper.parentElement.offsetHeight;
 
     selectorsObject.keyTextArticleWrapper.classList.add('no-transition');
     selectorsObject.keyTextArticleWrapper.removeAttribute('style');
-
-
     selectorsObject.keyButtonLongText.classList.remove('long-text-after');
     selectorsObject.keyButtonLongText.classList.add('long-text-before');
     selectorsObject.keyButtonLongText.innerHTML = 'читать далее';
-
-
 
     if (heightWrapperTextArticle > heightBoxTextArticle) {
 
@@ -186,22 +178,21 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
     else {
         selectorsObject.keyButtonLongText.classList.add('hide');
     }
-
-
-
-
-
+    
     if (selectorsObject.keyBoxVerticalList.children.length === 0) {
         for (let i = 0; i < countListsBox; i++) {
 
             selectorsObject.keyBoxVerticalList.append(mainObj[century].tegForPersonList[i]);
         }
     }
+    
     if (countListsBox > 1) selectorsObject.keyBottomVerticalList[1].style.display="block";
+    
     if (countListsBox === 1)  {
         selectorsObject.keyBottomVerticalList[1].style.display="none";
         selectorsObject.keyBottomVerticalList[0].style.display="none";
     }
+    
     for (let i = 0; i < selectorsObject.keyCenturyButton.length; i++) {
 
         if (selectorsObject.keyCenturyButton[i].value === century) {
@@ -222,31 +213,23 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
 
             selectorsObject.keyBoxVerticalList.classList.add('no-transition');
 
-
             let heightWrapperTextArticle = selectorsObject.keyTextArticleWrapper.offsetHeight;
             let heightBoxTextArticle = selectorsObject.keyTextArticleWrapper.parentElement.offsetHeight;
 
             selectorsObject.keyTextArticleWrapper.classList.add('no-transition');
             selectorsObject.keyTextArticleWrapper.removeAttribute('style');
-
-
             selectorsObject.keyButtonLongText.classList.remove('long-text-after');
             selectorsObject.keyButtonLongText.classList.add('long-text-before');
             selectorsObject.keyButtonLongText.innerHTML = 'читать далее';
-
-
 
             if (heightWrapperTextArticle > heightBoxTextArticle) {
 
                 selectorsObject.keyButtonLongText.classList.remove('hide');
             }
             else {
+                
                 selectorsObject.keyButtonLongText.classList.add('hide');
             }
-
-
-
-
 
             selectorsObject.keyBoxVerticalList.innerHTML = '';
             selectorsObject.keyBoxVerticalList.style.left = 0;
@@ -255,6 +238,9 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
                 0: newCentury,
                 1: mainObj[newCentury].names[0].id,
             };
+            
+            selectorsObject.keyButtonGallery.dataset.century = id[0];
+            selectorsObject.keyButtonGallery.dataset.id = id[1];
 
             for (let i = 0; i < selectorsObject.keyBottomVerticalList.length; i++ ) {
                 if (selectorsObject.keyBottomVerticalList[i].value === 'left') {
@@ -391,16 +377,6 @@ let clickToPersonList = (e) => {
 
     let footerMenuUl = target.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].children[1];
 
-
-
-
-
-
-
-
-
-
-
     for (let j = 0; j < elementFooterMenu.length; j++) {
 
         elementFooterMenu[j].classList.remove('footer__menu-elem_active');
@@ -461,12 +437,9 @@ let clickToPersonList = (e) => {
     textBoxArticleWrapper.classList.add('no-transition');
     textBoxArticleWrapper.removeAttribute('style');
 
-
     buttonLongArticle.classList.remove('long-text-after');
     buttonLongArticle.classList.add('long-text-before');
     buttonLongArticle.innerHTML = 'читать далее';
-
-
 
     if (heightWrapperTextArticle > heightBoxTextArticle) {
 
