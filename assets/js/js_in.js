@@ -18,6 +18,196 @@
         language = 0;
     }
 
+
+    let domLoaded = () => {
+
+        let slider = new ParametersHtmlSlider('#slider_1');
+        let mainMenu = new ParametersHtmlSlider('.nav-title__box');
+
+        let mainMenuTitlePage = new CreatorMainMenu(mainMenu.objectSlider, pathAll, language);
+
+        let mainBox = document.querySelector('.main');
+        let textShortBio = document.querySelector('.main__short-biography');
+        let imgMainBox = document.querySelector('.main__img-main');
+        let textArticleBox = document.querySelector('.main__text');
+        let textArticleWrapper = document.querySelector('.main__text-box_wrapper');
+        let textHistoryBox = document.querySelector('.footer__text-box');
+        let boxVerticalList = document.querySelector('.main-navigation__main_box');
+        let bottomVerticalList = document.querySelectorAll('.wrapper-vertical-menu__button');
+        let centuryButton = document.querySelectorAll('.main-navigation__button');
+        let buttonAllTitle = document.querySelectorAll('.nav-title__button');
+        let titlePageBox = document.querySelector('.title-page-box');
+        let footerMenu = document.querySelector('.footer__menu');
+        let buttonFooterMenu = document.querySelectorAll('.footer__menu-elem');
+        let buttonGallery = document.querySelector('.button-gallery');
+        let buttonLongText = document.querySelector('.button-long-text');
+
+
+        let arraySelectors = {
+            keyMainBox: mainBox,
+            keyShortBio: textShortBio,
+            keyImgMainBox: imgMainBox,
+            keyTextArticleBox: textArticleBox,
+            keyTextHistoryBox: textHistoryBox,
+            keyBoxVerticalList: boxVerticalList,
+            keyBottomVerticalList: bottomVerticalList,
+            keyCenturyButton: centuryButton,
+            keyTitlePageBox: titlePageBox,
+            keyTitleButton: buttonAllTitle,
+            keyButtonFooterMenu: buttonFooterMenu,
+            keyButtonGallery: buttonGallery,
+            keyFooterMenu: footerMenu,
+            keyButtonLongText: buttonLongText,
+            keyTextArticleWrapper: textArticleWrapper,
+        };
+
+        objectBoxes = arraySelectors;
+
+        let showSlider = () => {
+
+            let personData = getPersonData(arraySelectors.keyButtonGallery.dataset.century, arraySelectors.keyButtonGallery.dataset.id, mainObj);
+
+            slider.removeHtml(slider.objectSlider.targetAllSlider.element);
+            let sliderFull = new CreatorSlider (slider.objectSlider, personData.galleryImgData, language, 4);
+            sliderFull.pastInPlace();
+        };
+
+        showLongText(arraySelectors);
+
+//управление возвращением к первой странице
+        document.addEventListener('click', (e) => {
+
+            if (e.target.parentElement.dataset.home === 'home' || e.target.parentElement.parentElement.dataset.home === 'home' || e.target.dataset.home === 'home'){
+
+                arraySelectors.keyBoxVerticalList.classList.remove('no-transition');
+                arraySelectors.keyTitlePageBox.removeAttribute('style');
+                arraySelectors.keyBoxVerticalList.removeAttribute('style');
+            }
+
+            clickNumber = true;
+
+            if (clickNumber && seconds === 0) {
+
+                let setName = setTimeout(function tick(){
+
+                    if (seconds < 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && clickNumber) {
+                        seconds = 0;
+                        clickNumber = false;
+                        clearTimeout(setName);
+                    }
+
+                    if (seconds === 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
+                        arraySelectors.keyTitlePageBox.style.left = 0 + 'px';
+                        let timeSliderPage = setTimeout( () => {
+
+                            slider.removeHtml(slider.objectSlider.targetAllSlider.element);
+                            arraySelectors.keyBoxVerticalList.removeAttribute('style');
+                            arraySelectors.keyBoxVerticalList.classList.remove('no-transition');
+                            clearTimeout(timeSliderPage);
+                        }, 800);
+
+                        seconds = 0;
+                        clickNumber = false;
+                        clearTimeout(setName);
+                        return;
+                    }
+                    if (seconds === 60000 && +arraySelectors.keyTitlePageBox.style.left === 0 && !clickNumber) {
+                        arraySelectors.keyTitlePageBox.style.left = 0 + 'px';
+                        let timeSliderPage = setTimeout( () => {
+
+                            slider.removeHtml(slider.objectSlider.targetAllSlider.element);
+                            arraySelectors.keyBoxVerticalList.removeAttribute('style');
+                            arraySelectors.keyBoxVerticalList.classList.remove('no-transition');
+                            clearTimeout(timeSliderPage);
+                        }, 800);
+
+                        seconds = 0;
+                        clickNumber = false;
+                        clearTimeout(setName);
+                        return;
+                    }
+                    if (seconds < 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
+                        let number = seconds;
+                        number = number + 1000;
+                        seconds = number;
+                    }
+                    setName = setTimeout(tick, 1000);
+                }, 1000);
+            }
+
+        });
+
+        //переход на другую страницу с переменной id
+        let begin = (arraySelectors, mainObj, id) => {
+
+            let $buttonShowGallery = document.createElement("button");
+            $buttonShowGallery.className = 'button-gallery';
+            $buttonShowGallery.setAttribute('type', 'button');
+            $buttonShowGallery.setAttribute('data-century', '');
+            $buttonShowGallery.setAttribute('data-id', '');
+            $buttonShowGallery.innerHTML = '<svg class="icon_gallery" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 453.92 452.83">\n' +
+                '            <use xlink:href="assets/img/sprite-icon-svg.svg#icon_gallery"></use>\n' +
+                '        </svg>';
+
+            $buttonShowGallery.addEventListener('click', showSlider);
+
+            arraySelectors.keyButtonGallery.remove();
+            arraySelectors.keyMainBox.append($buttonShowGallery);
+            arraySelectors.keyButtonGallery = $buttonShowGallery;
+
+
+            for (let i = 0; i < arraySelectors.keyTitleButton.length; i++) {
+                if(arraySelectors.keyTitleButton[i]) {
+
+                    arraySelectors.keyTitleButton[i].addEventListener('click', function() {
+                        let dataTape = this.value;
+                        id = stringDivider(dataTape,'|||');
+                        let statePage = false;
+                        arraySelectors.keyTitlePageBox.style.left = -1090 + 'px';
+                        arraySelectors.keyButtonGallery.setAttribute('data-century', id[0]);
+                        arraySelectors.keyButtonGallery.setAttribute('data-id', id[1]);
+                        arraySelectors.keyBoxVerticalList.classList.add('no-transition');
+
+                        for (let i = 0; i < arraySelectors.keyBottomVerticalList.length; i++ ) {
+                            arraySelectors.keyBottomVerticalList[i].dataset.century = id[0];
+                        }
+
+                        if (arraySelectors.keyBoxVerticalList.innerHTML !== '' && !statePage) {
+                            arraySelectors.keyBoxVerticalList.innerHTML = '';
+                            arraySelectors.keyBoxVerticalList.style.left = 0;
+
+                            for (let i = 0; i < arraySelectors.keyBottomVerticalList.length; i++ ) {
+                                arraySelectors.keyBottomVerticalList[i].style.display = 'none';
+                            }
+                            for (let i = 0; i < arraySelectors.keyCenturyButton.length; i++) {
+                                arraySelectors.keyCenturyButton[i].parentElement.classList.remove('active-element');
+                                arraySelectors.keyCenturyButton[i].disabled = false;
+                            }
+                        }
+                        statePage = true;
+
+                        let numberListsBox = displayContent(id[0], mainObj, id[1], arraySelectors);
+
+                        let numberActiveBox = activateElementVerticalList (numberListsBox, mainObj, id[0], id[1]);
+
+                        let timerAutoAnimate = setTimeout( () => {
+                            autoAnimatePersonsList (arraySelectors.keyBottomVerticalList, numberActiveBox, id[0]);
+                            clearTimeout(timerAutoAnimate);
+                        }, 800);
+
+                        if (statePage) {
+
+                            clickToButtonList(arraySelectors, id[0]);
+                            clickToButtonCentury(id[0], arraySelectors, mainObj);
+                            clickButtonFooterMenu(arraySelectors, mainObj);
+                        }
+                    });
+                }
+            }
+        };
+        begin(arraySelectors, mainObj, id);
+    };
+
     let getFirstText = () => {
         getData('assets/text/nameFiles.txt');
 
@@ -48,14 +238,16 @@
                         buildFullMainObject();
                         margeObject();
                         clearInterval(timer1);
-
-                        return margeObjectToo(separatorStringText(allText), mainObj);
+                        let mergeAll = margeObjectToo(separatorStringText(allText), mainObj);
+                        document.addEventListener('DOMContentLoaded', domLoaded());
+                        return mergeAll;
                     }}, 5);
                     clearInterval(timer);
             }}, 5);
     };
 
     getTooText(getFirstText());
+
 
 nameAndDate = {};
 
@@ -95,10 +287,13 @@ nameAndDate = {};
     getNameAndDate(mainObj);
 
 
-    let clickButtonFooterMenu = (arraySelectors, mainObj, id) => {
+    let clickButtonFooterMenu = (arraySelectors, mainObj) => {
         for (let i = 0; i < arraySelectors.keyButtonFooterMenu.length; i++) {
 
             arraySelectors.keyButtonFooterMenu[i].addEventListener('click', (e) => {
+
+                let id = e.target.parentElement.dataset.id;
+                let century = e.target.parentElement.dataset.century;
 
                 for (let j = 0; j < arraySelectors.keyButtonFooterMenu.length; j++) {
 
@@ -106,13 +301,14 @@ nameAndDate = {};
                 }
                 let dataType = e.target.dataset.type;
 
-                    for( let person in mainObj[id[0]].names ) {
+                    for( let person in mainObj[century].names ) {
 
-                    if (mainObj[id[0]].names.hasOwnProperty(person)) {
+                    if (mainObj[century].names.hasOwnProperty(person)) {
 
-                        if (mainObj[id[0]].names[person].id === id[1]) {
+                        if (mainObj[century].names[person].id === id) {
 
-                            arraySelectors.keyTextHistoryBox.innerHTML =  mainObj[id[0]].names[person].history[dataType - 1][language];
+                            arraySelectors.keyTextHistoryBox.innerHTML =  mainObj[century].names[person].history[dataType - 1][language];
+
                             arraySelectors.keyButtonFooterMenu[i].classList.add('footer__menu-elem_active');
                         }
                     }
@@ -120,269 +316,3 @@ nameAndDate = {};
             });
         }
     };
-
-document.addEventListener('DOMContentLoaded', () => {
-
-        let mainBox = document.querySelector('.main');
-        let textShortBio = document.querySelector('.main__short-biography');
-        let imgMainBox = document.querySelector('.main__img-main');
-        let textArticleBox = document.querySelector('.main__text');
-        let textHistoryBox = document.querySelector('.footer__text-box');
-        let boxVerticalList = document.querySelector('.main-navigation__main_box');
-        let bottomVerticalList = document.querySelectorAll('.wrapper-vertical-menu__button');
-        let centuryButton = document.querySelectorAll('.main-navigation__button');
-        let buttonAllTitle = document.querySelectorAll('.nav-title__button');
-        let titlePageBox = document.querySelector('.title-page-box');
-        let buttonFooterMenu = document.querySelectorAll('.footer__menu-elem');
-        let buttonGallery = document.querySelector('.button-gallery');
-        let sliderBox = document.getElementById('slider_1');
-        let containerForPict = document.querySelector('.sliderBox__container-pict');
-        let buttonGalleryNextPrev = document.querySelectorAll('.sliderBox__button-slider');
-        let buttonGalleryRight = document.querySelector('.sliderBox__button-slider_right');
-        let buttonGalleryLeft = document.querySelector('.sliderBox__button-slider_left');
-        let buttonGalleryClose = document.querySelector('.close');
-
-
-        let arraySelectors = {
-            keyMainBox: mainBox,
-            keyShortBio: textShortBio,
-            keyImgMainBox: imgMainBox,
-            keyTextArticleBox: textArticleBox,
-            keyTextHistoryBox: textHistoryBox,
-            keyBoxVerticalList: boxVerticalList,
-            keyBottomVerticalList: bottomVerticalList,
-            keyCenturyButton: centuryButton,
-            keyTitlePageBox: titlePageBox,
-            keyTitleButton: buttonAllTitle,
-            keyButtonFooterMenu: buttonFooterMenu,
-            keyButtonGallery: buttonGallery,
-            keyContainerForPict: containerForPict,
-            keyButtonGalleryNextPrev: buttonGalleryNextPrev,
-            keySliderBox: sliderBox,
-            keyButtonGalleryClose: buttonGalleryClose,
-            keyButtonGalleryRight: buttonGalleryRight,
-            keyButtonGalleryLeft: buttonGalleryLeft,
-        };
-
-        objectBoxes = arraySelectors;
-
-let managementSliderRight = () => {
-
-    let id = {
-        0: arraySelectors.keyButtonGallery.dataset.century,
-        1: arraySelectors.keyButtonGallery.dataset.id,
-    };
-
-    let pictObject = getElementSlider(id, mainObj);
-    let countPicturesSlider = Object.keys(pictObject).length;
-    let buttonLeft = arraySelectors.keyButtonGalleryLeft;
-    let buttonRight =  arraySelectors.keyButtonGalleryRight;
-
-    for (let i = 1; i <= countPicturesSlider; i++) {
-
-        if (+pictObject[i - 1].dataset.number === i && !pictObject[i - 1].classList[2]) {
-
-            buttonRight.disabled = true;
-            buttonLeft.disabled = false;
-            pictObject[i - 1].style.left = '-2000px';
-            let delay = setTimeout(() => {
-                pictObject[i - 1].classList.add('hide');
-                pictObject[i - 1].style.left = '0px';
-                pictObject[i].classList.remove('hide');
-                buttonLeft.classList.remove('hide');
-                buttonRight.disabled = false;
-                if (i === countPicturesSlider - 1) {
-
-                    buttonRight.disabled = true;
-                    buttonLeft.disabled = false;
-                    buttonRight.classList.add('hide');
-                }
-                clearTimeout(delay);
-            }, 800);
-        }
-    }
-};
-
-let managementSliderLeft = () => {
-
-    let id = {
-        0: arraySelectors.keyButtonGallery.dataset.century,
-        1: arraySelectors.keyButtonGallery.dataset.id,
-    };
-
-    let pictObject = getElementSlider(id, mainObj);
-    let countPicturesSlider = Object.keys(pictObject).length;
-    let buttonLeft = arraySelectors.keyButtonGalleryLeft;
-    let buttonRight =  arraySelectors.keyButtonGalleryRight;
-
-    for (let i = 1; i <= countPicturesSlider; i++) {
-
-        if (+pictObject[i - 1].dataset.number === i && !pictObject[i - 1].classList[2]) {
-
-            pictObject[i - 1].style.left = '1200px';
-            buttonRight.disabled = false;
-            buttonLeft.disabled = true;
-
-            let delay = setTimeout(() => {
-                pictObject[i - 1].classList.add('hide');
-                pictObject[i - 1].style.left = '0px';
-                pictObject[i - 2].classList.remove('hide');
-                buttonRight.classList.remove('hide');
-                buttonLeft.disabled = false;
-                if (i - 1 === 1) {
-                    buttonLeft.disabled = true;
-                    buttonRight.disabled = false;
-                    buttonLeft.classList.add('hide');
-                }
-                clearTimeout(delay);
-            }, 800);
-        }
-    }
-};
-
-let showSlider = () => {
-    let pictObject;
-
-    id = [arraySelectors.keyButtonGallery.dataset.century, arraySelectors.keyButtonGallery.dataset.id];
-
-    pictObject = getElementSlider(id, mainObj);
-    arraySelectors.keySliderBox.classList.add('show');
-
-    for(let i = 0; i < Object.keys(pictObject).length; i++) {
-
-         if (i > 0) {
-              pictObject[i].classList.add('hide');
-         }
-    }
-    if (Object.keys(pictObject).length === 1) {
-
-        arraySelectors.keyButtonGalleryLeft.classList.add('hide');
-        arraySelectors.keyButtonGalleryRight.classList.add('hide');
-    }
-    else {
-        arraySelectors.keyButtonGalleryLeft.classList.add('hide');
-    }
-    closeSlider (arraySelectors, mainObj);
-};
-
-//управление возвращением к первой странице
-document.addEventListener('click', () => {
-    clickNumber = true;
-    if (clickNumber && seconds === 0) {
-
-        let setName = setTimeout(function tick(){
-
-            if (seconds < 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && clickNumber) {
-
-                seconds = 0;
-                clickNumber = false;
-                clearTimeout(setName);
-            }
-            if (seconds === 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
-                arraySelectors.keyTitlePageBox.style.left = 0 + 'px';
-                let timeSliderPage = setTimeout( () => {
-                    arraySelectors.keySliderBox.classList.remove('show');
-                    arraySelectors.keyButtonGalleryLeft.classList.remove('hide');
-                    arraySelectors.keyButtonGalleryLeft.removeAttribute('disabled');
-                    arraySelectors.keyButtonGalleryRight.classList.remove('hide');
-                    arraySelectors.keyButtonGalleryRight.removeAttribute('disabled');
-                    clearTimeout(timeSliderPage);
-                }, 1000);
-                seconds = 0;
-                clickNumber = false;
-                clearTimeout(setName);
-                return;
-            }
-            if (seconds < 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
-                let number = seconds;
-                number = number + 1000;
-                seconds = number;
-            }
-            setName = setTimeout(tick, 1000);
-        }, 1000);
-    }
-});
-
-        //переход на другую страницу с переменной id
-let begin = (arraySelectors, mainObj, id) => {
-
-    let $buttonSliderRight = document.createElement("button");
-    $buttonSliderRight.className = 'sliderBox__button-slider';
-    $buttonSliderRight.classList.add('sliderBox__button-slider_right');
-    $buttonSliderRight.setAttribute('type', 'button');
-    $buttonSliderRight.setAttribute('data-side', 'right');
-    $buttonSliderRight.addEventListener('click', managementSliderRight);
-
-    arraySelectors.keyButtonGalleryRight.remove();
-    arraySelectors.keySliderBox.append($buttonSliderRight);
-    arraySelectors.keyButtonGalleryRight = $buttonSliderRight;
-
-    let $buttonSliderLeft = document.createElement("button");
-    $buttonSliderLeft.className = 'sliderBox__button-slider';
-    $buttonSliderLeft.classList.add('sliderBox__button-slider_left');
-    $buttonSliderLeft.setAttribute('type', 'button');
-    $buttonSliderLeft.setAttribute('data-side', 'left');
-    $buttonSliderLeft.addEventListener('click', managementSliderLeft);
-
-    arraySelectors.keyButtonGalleryLeft.remove();
-    arraySelectors.keySliderBox.append($buttonSliderLeft);
-    arraySelectors.keyButtonGalleryLeft = $buttonSliderLeft;
-
-    let $buttonShowGallery = document.createElement("button");
-    $buttonShowGallery.className = 'button-gallery';
-    $buttonShowGallery.setAttribute('type', 'button');
-    $buttonShowGallery.setAttribute('data-century', '');
-    $buttonShowGallery.setAttribute('data-id', '');
-    $buttonShowGallery.innerHTML = '<svg class="icon_gallery" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 453.92 452.83">\n' +
-                '            <use xlink:href="assets/img/sprite-icon-svg.svg#icon_gallery"></use>\n' +
-                '        </svg>';
-
-    $buttonShowGallery.addEventListener('click', showSlider);
-
-    arraySelectors.keyButtonGallery.remove();
-    arraySelectors.keyMainBox.append($buttonShowGallery);
-    arraySelectors.keyButtonGallery = $buttonShowGallery;
-
-    for (let i = 0; i < arraySelectors.keyTitleButton.length; i++) {
-        if(arraySelectors.keyTitleButton[i]) {
-
-            arraySelectors.keyTitleButton[i].addEventListener('click', function() {
-                let dataTape = this.value;
-                id = stringDivider(dataTape,'|||');
-                let statePage = false;
-                arraySelectors.keyTitlePageBox.style.left = -1090 + 'px';
-
-                if (arraySelectors.keyBoxVerticalList.innerHTML !== '' && !statePage) {
-                    arraySelectors.keyBoxVerticalList.innerHTML = '';
-                    arraySelectors.keyBoxVerticalList.style.left = 0;
-
-                    for (let i = 0; i < arraySelectors.keyBottomVerticalList.length; i++ ) {
-                        arraySelectors.keyBottomVerticalList[i].style.display = 'none';
-                    }
-                    for (let i = 0; i < arraySelectors.keyCenturyButton.length; i++) {
-                        arraySelectors.keyCenturyButton[i].parentElement.classList.remove('active-element');
-                        arraySelectors.keyCenturyButton[i].disabled = false;
-                    }
-                }
-                statePage = true;
-                let countListsBox = displayContent(id[0], mainObj, id[1], arraySelectors);
-                let numberActiveBox = activateElementVerticalList (countListsBox, mainObj, id[0], id[1]);
-
-                let timerAutoAnimate = setTimeout( () => {
-                    autoAnimatePersonsList (arraySelectors.keyBottomVerticalList, numberActiveBox, id[0]);
-                    clearTimeout(timerAutoAnimate);
-                }, 800);
-
-                if (statePage) {
-                    clickToButtonList(arraySelectors, id[0]);
-                    clickToButtonCentury(id[0], arraySelectors, mainObj);
-                    clickButtonFooterMenu(arraySelectors, mainObj, id);
-                    showHideMainSliderButton (arraySelectors, id, mainObj);
-                }
-            });
-        }
-    }
-};
-    begin(arraySelectors, mainObj, id);
-
-});

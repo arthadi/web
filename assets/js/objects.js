@@ -37,7 +37,6 @@ let margeObject = () => {
 //объединяем mainObj и textObject
 let margeObjectToo = (textObject, mainObj) => {
     let count = 0;
-
     for (let variable in mainObj) {
 
         for (let increment in  textObject) {
@@ -51,7 +50,6 @@ let margeObjectToo = (textObject, mainObj) => {
                     mainObj[variable].names[count].mainText = textObject[increment].mainText;
                     mainObj[variable].names[count].shortBio = textObject[increment].shortBio;
                     mainObj[variable].names[count].name = textObject[increment].name;
-                    mainObj[variable].names[count].gallariTeg = {};
 
                     count++;
                 }
@@ -63,49 +61,6 @@ let margeObjectToo = (textObject, mainObj) => {
     }
 };
 
-let galleryCreatorPictures = (mainObj, personObject, id, century) => {
-
-    let countPictures = Object.keys(personObject.galleryImgData).length;
-    let $galleryObject = {};
-    let placeForWriter;
-
-    for (let indexKey in mainObj[century].names) {
-
-        if (mainObj[century].names.hasOwnProperty(indexKey)) {
-
-            for (let valuePerson in mainObj[century].names[indexKey]) {
-
-                if (mainObj[century].names[indexKey].hasOwnProperty(valuePerson)) {
-
-                    if (valuePerson === 'id' && mainObj[century].names[indexKey].id === id) {
-
-                        placeForWriter = mainObj[century].names[indexKey].gallariTeg;
-                    }
-                }
-            }
-        }
-    }
-    if (Object.keys(personObject.galleryImgData.length !== 0)) {
-
-        for (let i = 0; i < countPictures; i++) {
-            $galleryObject[i] = document.createElement("figure");
-            $galleryObject[i].className = 'figure';
-            $galleryObject[i].classList.add('figure-slider');
-            $galleryObject[i].setAttribute('data-number', i + 1);
-            let img = document.createElement("img");
-            img.className = 'figure__img-slider';
-            img.setAttribute('src', 'assets/img/' + personObject.galleryImgData[i].nameFile);
-            img.setAttribute('alt', personObject.galleryImgData[i][1]);
-            $galleryObject[i].append(img);
-            let figcaption = document.createElement("figcaption");
-            figcaption.className = 'figure__figcaption-slider';
-            figcaption.innerText = personObject.galleryImgData[i][language];
-            $galleryObject[i].append(figcaption);
-            placeForWriter[i] = $galleryObject[i];
-        }
-    }
-return $galleryObject
-};
 //создание тега Ul (контейнера для списка персон) и список из тегов Li и сохраняем в mainObject
 let personsListCreator = (century, mainObject) => {
 

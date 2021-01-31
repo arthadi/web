@@ -13,6 +13,8 @@
     <link rel="preload" href="assets/font/fp-export-1527600209/Ubuntu-BI.woff" as="font" type="font/woff" crossorigin>
     <link rel="stylesheet" href="assets/css/mainPageClass.css">
     <link rel="stylesheet" href="assets/css/font.css">
+    <link rel="stylesheet" href="assets/css/sliderStyle.css">
+    <link rel="stylesheet" href="assets/css/style_for_js.css">
     <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">-->
     <script defer src="assets/js/functions.js"></script>
     <script defer src="assets/js/js_in.js"></script>
@@ -23,18 +25,33 @@
     <script defer src="assets/js/slider.js"></script>
 </head>
 <body class="body">
-<div id="slider_1" class="js-target-slider sliderBox">
-
-    <button class="close" type="button"></button>
-
-    <button class="sliderBox__button-slider sliderBox__button-slider_left" type="button"
-            data-side="left">
-    </button>
-    <div class="sliderBox__container-pict"></div>
-    <button class="sliderBox__button-slider sliderBox__button-slider_right" type="button"
-            data-side="right">
-    </button>
+<div id="slider_1" class="sliderBox hide" data-js="targetAllSlider">
+    <button class="close" type="button" data-js="buttonClose">></button>
+    <button class="sliderBox__button-slider sliderBox__button-slider_left" type="button" data-side="left" data-js="buttonLeft"></button>
+    <div class="sliderBox__container-pict" data-js="targetForPictures">
+        <figure class="figure figure-slider" data-js="targetForPict" data-number="">
+            <img src="" class="figure__img-slider" width="550"   alt="">
+            <figcaption class="figure__figcaption-slider">333</figcaption>
+        </figure>
+    </div>
+    <button class="sliderBox__button-slider sliderBox__button-slider_right" type="button" data-side="right" data-js="buttonRight" value=""></button>
+    <div class="sliderBox__tape-box" data-js="targetBoxTape">
+        <button class="sliderBox__button-slider sliderBox__button-slider_left sliderBox__button-tape-left" type="button" data-side="left" data-js="buttonTapeLeft"></button>
+        <div class="sliderBox__tape-pict" data-js="targetTapePictures">
+            <div class="sliderBox__tape" data-js="targetTape">
+                <button class="sliderBox__button-pict" type="button" data-js="buttonPicture" data-number="">
+                    <img src="" class="sliderBox__tape-img" data-number="" width="170" height="100" alt="">
+                </button>
+            </div>
+        </div>
+        <button class="sliderBox__button-slider sliderBox__button-slider_right sliderBox__button-tape-right"
+                type="button"
+                data-side="right"
+                data-js="buttonTapeRight"></button>
+    </div>
 </div>
+
+
 <div class="title-page-box">
     <header class="header">
         <h1 class="header__title header__title_color">Настоятели Кирилло-Белозерского монастыря</h1>
@@ -48,218 +65,12 @@
         </ul>
     </header>
     <nav class="nav-title">
-        <ul class="nav-title__box" data-number="1">
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл
-                    <span class="nav-title__button-date">  1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span
-                        class="nav-title__button-date">  1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span
-                        class="nav-title__button-date">  1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span
-                        class="nav-title__button-date">  1427-1434</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="16|||14">Кирилл<span
-                        class="nav-title__button-date"> 1434-1448</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1448-1465, 1466-1471</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1560-1561, 1563-1564, 1584-1587</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-        </ul>
-        <ul class="nav-title__box" data-number="1">
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл
-                    <span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1427-1434</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1434-1448</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1448-1465, 1466-1471</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1560-1561, 1563-1564, 1584-1587</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||1">Кирилл<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||2">Игнатий1<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||3">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
-            </li>
-            <li class="nav-title__element">
-                <button class="nav-title__button" type="button" value="15|||12">Паисий<span class="nav-title__button-date"> 1397 - 1427</span></button>
+        <ul class="nav-title__box" data-number="" data-js="columnList">
+            <li class="nav-title__element" data-js="stringList">
+                <button class="nav-title__button" type="button" value="15|||1" data-js="buttonStringList">
+                    <span class="nav-title__button-name" data-indent = "name"></span>
+                    <span class="nav-title__button-date" data-indent = "date"></span>
+                </button>
             </li>
         </ul>
     </nav>
@@ -271,12 +82,21 @@
     <h2 class="main__short-biography">
     </h2>
     <article class="main__text-box">
-        <img class="main__img-main" src="" alt="pict">
-        <p class="main__text"></p>
+        <div class="main__text-box_wrapper">
+            <img class="main__img-main" src="" alt="pict">
+            <p class="main__text"></p>
+        </div>
     </article>
+    <button class="button-long-text long-text-before hide" type="button"> читать далее</button>
+
     <button class="button-gallery" type="button" data-century="" data-id="">
         <svg class="icon_gallery" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 453.92 452.83">
             <use xlink:href="assets/img/sprite-icon-svg.svg#icon_gallery"></use>
+        </svg>
+    </button>
+    <button class="button-go-home" type="button" data-home="home">
+        <svg class="icon_go-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 523 442">
+            <use xlink:href="assets/img/sprite-icon-svg.svg#home"></use>
         </svg>
     </button>
 </main>
@@ -292,17 +112,20 @@
     </ul>
 </nav>
 <div class="wrapper-vertical-menu">
-    <button class="wrapper-vertical-menu__button wrapper-vertical-menu__button-left" type="button" value="left"></button>
+    <button class="wrapper-vertical-menu__button wrapper-vertical-menu__button-left" type="button"
+            data-century="15"  value="left"></button>
     <nav class="main-navigation main-navigation_vertical">
         <div class="main-navigation__main_box"></div>
     </nav>
-    <button class="wrapper-vertical-menu__button wrapper-vertical-menu__button-right" type="button" value="right"></button>
+    <button class="wrapper-vertical-menu__button wrapper-vertical-menu__button-right" type="button"
+            data-century="15" value="right"></button>
 </div>
 <footer class="footer">
     <section class="footer__box">
         <h3 class="footer__title">СОБЫТИЯ ЭТОГО ПЕРИОДА</h3>
-        <ul class="footer__menu">
-            <li class="footer__menu-elem footer__menu-elem_active" data-type="1">в монастыре</li>
+        <ul class="footer__menu" data-century="" data-id="">
+            <li class="footer__menu-elem footer__menu-elem_active" data-type="1">в
+                монастыре</li>
             <li class="footer__menu-elem" data-type="2">в российской истории</li>
             <li class="footer__menu-elem" data-type="3">в мировой истории</li>
         </ul>

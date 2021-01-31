@@ -45,7 +45,6 @@ let getPersonData = (century, index2, mainObj) => {
                         personContent.galleryImgData = mainObj[century].names[indexKey].galleryImgData;
                         personContent.name = mainObj[century].names[indexKey].name;
                         personContent.date = mainObj[century].names[indexKey].date;
-                        personContent.gallariTeg = mainObj[century].names[indexKey].gallariTeg;
                         personContent.index = indexKey;
 
                         return personContent;
@@ -154,14 +153,43 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
 
     let countListsBox = personsListCreator(century, mainObj);
     let personObject = getPersonData(century, id, mainObj);
-    let galleryPicturesObject = galleryCreatorPictures (mainObj, personObject, id, century);
 
-    selectorsObject.keyContainerForPict.innerHTML = '';
     selectorsObject.keyShortBio.innerHTML = personObject.shortBio[0][language];
     selectorsObject.keyTextArticleBox.innerHTML = personObject.mainText[0][language];
     $(selectorsObject.keyTextArticleBox).hyphenate();
     selectorsObject.keyTextHistoryBox.innerHTML = personObject.history[0][language];
     selectorsObject.keyImgMainBox.setAttribute('src', 'assets/img/' + personObject.mainImgData.nameFile);
+    selectorsObject.keyFooterMenu.dataset.id = id;
+    selectorsObject.keyFooterMenu.dataset.century = century;
+
+
+
+
+
+    let heightWrapperTextArticle = selectorsObject.keyTextArticleWrapper.offsetHeight;
+    let heightBoxTextArticle = selectorsObject.keyTextArticleWrapper.parentElement.offsetHeight;
+
+    selectorsObject.keyTextArticleWrapper.classList.add('no-transition');
+    selectorsObject.keyTextArticleWrapper.removeAttribute('style');
+
+
+    selectorsObject.keyButtonLongText.classList.remove('long-text-after');
+    selectorsObject.keyButtonLongText.classList.add('long-text-before');
+    selectorsObject.keyButtonLongText.innerHTML = 'читать далее';
+
+
+
+    if (heightWrapperTextArticle > heightBoxTextArticle) {
+
+        selectorsObject.keyButtonLongText.classList.remove('hide');
+    }
+    else {
+        selectorsObject.keyButtonLongText.classList.add('hide');
+    }
+
+
+
+
 
     if (selectorsObject.keyBoxVerticalList.children.length === 0) {
         for (let i = 0; i < countListsBox; i++) {
@@ -182,9 +210,6 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
             selectorsObject.keyCenturyButton[i].setAttribute('disabled', 'true');
         }
     }
-    for(let i = 0; i < Object.keys(galleryPicturesObject).length; i++) {
-        selectorsObject.keyContainerForPict.append(galleryPicturesObject[i]);
-    }
     return countListsBox;
 };
 
@@ -195,6 +220,34 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
 
         selectorsObject.keyCenturyButton[i].addEventListener('click', (e) => {
 
+            selectorsObject.keyBoxVerticalList.classList.add('no-transition');
+
+
+            let heightWrapperTextArticle = selectorsObject.keyTextArticleWrapper.offsetHeight;
+            let heightBoxTextArticle = selectorsObject.keyTextArticleWrapper.parentElement.offsetHeight;
+
+            selectorsObject.keyTextArticleWrapper.classList.add('no-transition');
+            selectorsObject.keyTextArticleWrapper.removeAttribute('style');
+
+
+            selectorsObject.keyButtonLongText.classList.remove('long-text-after');
+            selectorsObject.keyButtonLongText.classList.add('long-text-before');
+            selectorsObject.keyButtonLongText.innerHTML = 'читать далее';
+
+
+
+            if (heightWrapperTextArticle > heightBoxTextArticle) {
+
+                selectorsObject.keyButtonLongText.classList.remove('hide');
+            }
+            else {
+                selectorsObject.keyButtonLongText.classList.add('hide');
+            }
+
+
+
+
+
             selectorsObject.keyBoxVerticalList.innerHTML = '';
             selectorsObject.keyBoxVerticalList.style.left = 0;
             let newCentury = e.target.value;
@@ -203,13 +256,25 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
                 1: mainObj[newCentury].names[0].id,
             };
 
+            for (let i = 0; i < selectorsObject.keyBottomVerticalList.length; i++ ) {
+                if (selectorsObject.keyBottomVerticalList[i].value === 'left') {
+
+                    selectorsObject.keyBottomVerticalList[i].style.display = 'none';
+                }
+                selectorsObject.keyBottomVerticalList[i].dataset.century = id[0];
+            }
+
             for (let i = 0; i < selectorsObject.keyCenturyButton.length; i++) {
 
                 selectorsObject.keyCenturyButton[i].parentElement.classList.remove('active-element');
                 selectorsObject.keyCenturyButton[i].disabled = false;
             }
 
+            selectorsObject.keyFooterMenu.dataset.id = id[1];
+            selectorsObject.keyFooterMenu.dataset.century = id[0];
+
             let countListsBox = displayContent (id[0], mainObject, id[1], selectorsObject);
+
             activateElementVerticalList (countListsBox, mainObj, id[0], id[1]);
 
             for (let j = 0; j < selectorsObject.keyButtonFooterMenu.length; j++) {
@@ -217,7 +282,6 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
                 selectorsObject.keyButtonFooterMenu[j].classList.remove('footer__menu-elem_active');
             }
             selectorsObject.keyButtonFooterMenu[0].classList.add('footer__menu-elem_active');
-            showHideMainSliderButton(selectorsObject, id, mainObj);
         });
     }
 };
@@ -226,22 +290,16 @@ let getDataForPerson = (id, mainObject, century, index, objectSelector) => {
 
     let personObject = getPersonData(century, id, mainObject);
 
-    let galleryPicturesObject = galleryCreatorPictures (mainObject, personObject, id, century);
-    objectSelector.keyContainerForPict.innerHTML = '';
     objectSelector.keyTextArticleBox.innerHTML = personObject.mainText[0][language];
     $(objectSelector.keyTextArticleBox).hyphenate();
     objectSelector.keyTextHistoryBox.innerHTML = personObject.history[0][language];
     objectSelector.keyShortBio.innerHTML = personObject.shortBio[0][language];
     objectSelector.keyImgMainBox.src = 'assets/img/' + personObject.mainImgData.nameFile;
 
-    for(let i = 0; i < Object.keys(galleryPicturesObject).length; i++) {
-        objectSelector.keyContainerForPict.append(galleryPicturesObject[i]);
-    }
-
-    if (Object.keys(personObject.gallariTeg).length === 0) {
+    if (Object.keys(personObject.galleryImgData).length === 0) {
         objectSelector.keyButtonGallery.classList.add('hide');
-        objectSelector.keyButtonGallery.dataset.century = century;
-        objectSelector.keyButtonGallery.dataset.id = id;
+        objectSelector.keyButtonGallery.dataset.century = " ";
+        objectSelector.keyButtonGallery.dataset.id = " ";
     }
     else {
         objectSelector.keyButtonGallery.classList.remove('hide');
@@ -250,9 +308,98 @@ let getDataForPerson = (id, mainObject, century, index, objectSelector) => {
     }
 };
 
+let showLongText = (arraySelectors) => {
+
+    arraySelectors.keyButtonLongText.addEventListener('click', function () {
+
+        let heightTextBox = this.previousElementSibling.offsetHeight;
+        let $textWrapper = this.previousElementSibling.children[0];
+        let heightWrapper = $textWrapper.offsetHeight;
+        let heightDifference = (heightWrapper) - heightTextBox;
+
+
+        $textWrapper.classList.remove('no-transition');
+
+
+        if (heightDifference > 0 && heightDifference < heightTextBox && !$textWrapper.style.top) {
+
+            $textWrapper.style.top = -heightDifference + 'px';
+
+
+            if (heightDifference < heightTextBox) {
+
+                toggleButtonForText($textWrapper, this);
+            }
+        }
+        else if (heightDifference > 0 && heightDifference > heightTextBox && !$textWrapper.style.top){
+
+            $textWrapper.style.top = -heightTextBox + 'px';
+
+            if (heightDifference < heightTextBox) {
+
+                toggleButtonForText($textWrapper, this);
+            }
+        }
+        else if (heightDifference > 0 && heightDifference > heightTextBox && $textWrapper.style.top){
+
+            let currentTop = Number($textWrapper.style.top.replace(/[^0-9]/g, ''));
+            let differenceTop = heightWrapper - (currentTop + heightTextBox);
+
+            if (differenceTop > 0 && differenceTop < heightTextBox) {
+
+                $textWrapper.style.top = -(currentTop + differenceTop) + 'px';
+            }
+            else if (differenceTop > 0 && differenceTop > heightTextBox) {
+
+                $textWrapper.style.top = -(currentTop + heightTextBox) + 'px';
+            }
+            if (differenceTop < heightTextBox) {
+
+                toggleButtonForText($textWrapper, this);
+            }
+        }
+        else if (heightDifference > 0 && heightDifference < heightTextBox && $textWrapper.style.top){
+
+                toggleButtonForText($textWrapper, this);
+        }
+
+    });
+};
+
+let toggleButtonForText = ($textWrapper, button) => {
+
+    if (button.classList.contains('long-text-after')) {
+        $textWrapper.removeAttribute('style');
+        button.classList.remove('long-text-after');
+        button.classList.add('long-text-before');
+        button.innerHTML = 'читать далее';
+    }
+    else {
+        button.innerHTML = 'к началу';
+        button.classList.remove('long-text-before');
+        button.classList.add('long-text-after');
+    }
+};
+
 let clickToPersonList = (e) => {
-    let id = e.target.value;
-    let elementFooterMenu = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].children[1].children;
+
+    let target = e.target.value ? e.target : e.target.parentElement;
+
+    let id = target.value;
+
+    let elementFooterMenu = target.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].children[1].children;
+
+    let footerMenuUl = target.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].children[1];
+
+
+
+
+
+
+
+
+
+
 
     for (let j = 0; j < elementFooterMenu.length; j++) {
 
@@ -270,7 +417,8 @@ let clickToPersonList = (e) => {
                 if (mainObj[thisCentury].names.hasOwnProperty(index)) {
 
                     if(mainObj[thisCentury].names[index].id === id) {
-
+                        footerMenuUl.dataset.century = thisCentury;
+                        footerMenuUl.dataset.id = id;
                         getDataForPerson(id, mainObj, thisCentury, index, objectBoxes);
                     }
                 }
@@ -295,6 +443,37 @@ let clickToPersonList = (e) => {
                 }
             }
         }
+    }
+    let mainBoxArticle = target.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling.previousElementSibling;
+
+    let mainBoxArticleChildren = mainBoxArticle.children;
+
+    let buttonLongArticle = mainBoxArticleChildren[2];
+    let textBoxArticle = mainBoxArticleChildren[1];
+
+    let textBoxArticleWrapper = textBoxArticle.children[0];
+
+
+
+    let heightWrapperTextArticle = textBoxArticleWrapper.offsetHeight;
+    let heightBoxTextArticle = textBoxArticle.offsetHeight;
+
+    textBoxArticleWrapper.classList.add('no-transition');
+    textBoxArticleWrapper.removeAttribute('style');
+
+
+    buttonLongArticle.classList.remove('long-text-after');
+    buttonLongArticle.classList.add('long-text-before');
+    buttonLongArticle.innerHTML = 'читать далее';
+
+
+
+    if (heightWrapperTextArticle > heightBoxTextArticle) {
+
+        buttonLongArticle.classList.remove('hide');
+    }
+    else {
+        buttonLongArticle.classList.add('hide');
     }
 };
 
@@ -322,11 +501,12 @@ let autoAnimatePersonsList = (button, countBox, century) => {
     let rightButton = button[0].parentElement.children[2];
     let boxListWidth = mainObj[century].tegForPersonList[0].offsetWidth + 40;
     let transportBox = button[0].nextSibling.parentElement.children[1].children[0];
+    let transportBoxCountChildren = transportBox.children.length;
 
     if(countBox === 1) {
         return;
     }
-    if(countBox === 2) {
+    if(countBox === 2 && transportBoxCountChildren === 2) {
 
         transportBox.style.left = - boxListWidth + 'px';
         rightButton.style.display = 'none';
@@ -336,23 +516,36 @@ let autoAnimatePersonsList = (button, countBox, century) => {
             clearTimeout(delSetTime)
         }, 800);
     }
+    if(countBox === 2 && transportBoxCountChildren === 3) {
+
+        transportBox.style.left = - boxListWidth + 'px';
+        rightButton.style.display = 'block';
+
+        let delSetTime = setTimeout(() => {
+            leftButton.style.display = 'block';
+            clearTimeout(delSetTime)
+        }, 800);
+    }
     if(countBox === 3) {
 
         if (transportBox.offsetLeft === 0) {
-            transportBox.style.left = - boxListWidth + 'px';
+            transportBox.style.left = - boxListWidth * 2 + 'px';
 
             let delSetTime = setTimeout(() => {
+                rightButton.style.display = 'none';
                 leftButton.style.display = 'block';
                 clearTimeout(delSetTime)
             }, 800);
         }
-        if (transportBox.offsetLeft < 0) {
-            transportBox.style.left = (transportBox.offsetLeft - boxListWidth) + 'px';
-
-            let delSetTime = setTimeout(() => {
-                rightButton.style.display = 'none';
-                clearTimeout(delSetTime)
-            }, 800);
-        }
+        // if (transportBox.offsetLeft < 0) {
+        //     console.log(transportBox.offsetLeft);
+        //     transportBox.style.left = (transportBox.offsetLeft - boxListWidth * 2) + 'px';
+        //
+        //     let delSetTime = setTimeout(() => {
+        //         rightButton.style.display = 'none';
+        //         clearTimeout(delSetTime)
+        //     }, 800);
+        // }
     }
+
 };
