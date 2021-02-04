@@ -299,17 +299,22 @@ let showLongText = (arraySelectors) => {
 
     arraySelectors.keyButtonLongText.addEventListener('click', function () {
 
+
+
         let heightTextBox = this.previousElementSibling.offsetHeight;
         let $textWrapper = this.previousElementSibling.children[0];
         let heightWrapper = $textWrapper.offsetHeight;
         let heightDifference = (heightWrapper) - heightTextBox;
+
         $textWrapper.classList.remove('no-transition');
 
-        if (heightDifference > 0 && heightDifference < heightTextBox && !$textWrapper.style.top) {
+        if (heightDifference > 0 && heightDifference <= heightTextBox && !$textWrapper.style.top) {
 
             $textWrapper.style.top = -heightDifference + 'px';
 
-            if (heightDifference < heightTextBox) {
+
+            if (heightDifference <= heightTextBox) {
+
 
                 toggleButtonForText($textWrapper, this);
             }
@@ -318,12 +323,15 @@ let showLongText = (arraySelectors) => {
 
             $textWrapper.style.top = -heightTextBox + 'px';
 
+
             if (heightDifference < heightTextBox) {
 
                 toggleButtonForText($textWrapper, this);
             }
         }
         else if (heightDifference > 0 && heightDifference > heightTextBox && $textWrapper.style.top){
+
+
 
             let currentTop = Number($textWrapper.style.top.replace(/[^0-9]/g, ''));
             let differenceTop = heightWrapper - (currentTop + heightTextBox);
@@ -341,7 +349,7 @@ let showLongText = (arraySelectors) => {
                 toggleButtonForText($textWrapper, this);
             }
         }
-        else if (heightDifference > 0 && heightDifference < heightTextBox && $textWrapper.style.top){
+        else if (heightDifference > 0 && heightDifference <= heightTextBox && $textWrapper.style.top){
 
                 toggleButtonForText($textWrapper, this);
         }
