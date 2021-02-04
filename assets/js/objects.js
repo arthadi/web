@@ -44,13 +44,11 @@ let margeObjectToo = (textObject, mainObj) => {
             if (textObject.hasOwnProperty(increment)) {
 
                 if (textObject[increment].century === variable && mainObj.hasOwnProperty(variable)) {
-
                     mainObj[variable].names[count].history = textObject[increment].history;
                     mainObj[variable].names[count].date = textObject[increment].date;
                     mainObj[variable].names[count].mainText = textObject[increment].mainText;
                     mainObj[variable].names[count].shortBio = textObject[increment].shortBio;
                     mainObj[variable].names[count].name = textObject[increment].name;
-
                     count++;
                 }
                 else {

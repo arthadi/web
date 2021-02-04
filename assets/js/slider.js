@@ -814,7 +814,7 @@ class CreatorMainMenu {
 
                 if (objectHtml[indexKey].htmlTeg === 'ul') {
 
-                    for (let i = 0; i < Math.ceil(countElement / 34); i++) {
+                    for (let i = 0; i < Math.ceil(countElement / 39); i++) {
 
                         objectHtml[indexKey].element[i] = document.createElement(objectHtml[indexKey].htmlTeg);
 
@@ -848,13 +848,13 @@ class CreatorMainMenu {
 
                     for (let i = 0; i < countElement; i++) {
 
-                        if (i <= 33) {
+                        if (i <= 38) {
                             number = 0;
                             y = i;
                         }
                         else {
                             number = 1;
-                            y = i - 34;
+                            y = i - 39;
                         }
 
                         objectHtml[indexKey].element[number][y] = document.createElement(objectHtml[indexKey].htmlTeg);
@@ -885,13 +885,13 @@ class CreatorMainMenu {
 
                     for (let i = 0; i < countElement; i++) {
 
-                        if (i <= 33) {
+                        if (i <= 38) {
                             number = 0;
                             y = i;
                         }
                         else {
                             number = 1;
-                            y = i - 34;
+                            y = i - 39;
                         }
 
                         objectHtml[indexKey].element[number][y] = document.createElement(objectHtml[indexKey].htmlTeg);
@@ -926,13 +926,13 @@ class CreatorMainMenu {
 
                     for (let i = 0; i < countElement; i++) {
 
-                    if (i <= 33) {
+                    if (i <= 38) {
                         number = 0;
                         y = i;
                     }
                     else {
                         number = 1;
-                        y = i - 34;
+                        y = i - 39;
                     }
 
                     objectHtml[indexKey].element[number][y] = document.createElement(objectHtml[indexKey].htmlTeg);
@@ -1045,7 +1045,6 @@ class CreatorMainMenu {
                 for (let index in parametersElementsSlider.columnList.children) {
 
                     if (parametersElementsSlider.columnList.children.hasOwnProperty(index)) {
-
                         for(let i = 0; i < parametersElementsSlider.columnList.children[index].element[indexElement].length; i++) {
                             parentElement[indexElement].append(parametersElementsSlider.columnList.children[index].element[indexElement][i]);
                         }

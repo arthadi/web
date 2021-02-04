@@ -146,6 +146,8 @@ let separatorStringText = (allText) => {
             }
         }
     }
+    // console.log(textObject);
+    // return;
     return textObject;
 };
 
@@ -161,7 +163,7 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
     selectorsObject.keyImgMainBox.setAttribute('src', 'assets/img/' + personObject.mainImgData.nameFile);
     selectorsObject.keyFooterMenu.dataset.id = id;
     selectorsObject.keyFooterMenu.dataset.century = century;
-    
+
     let heightWrapperTextArticle = selectorsObject.keyTextArticleWrapper.offsetHeight;
     let heightBoxTextArticle = selectorsObject.keyTextArticleWrapper.parentElement.offsetHeight;
 
@@ -169,7 +171,7 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
     selectorsObject.keyTextArticleWrapper.removeAttribute('style');
     selectorsObject.keyButtonLongText.classList.remove('long-text-after');
     selectorsObject.keyButtonLongText.classList.add('long-text-before');
-    selectorsObject.keyButtonLongText.innerHTML = 'читать далее';
+    selectorsObject.keyButtonLongText.innerHTML = language === 0 ? 'читать далее' : 'read more';
 
     if (heightWrapperTextArticle > heightBoxTextArticle) {
 
@@ -178,21 +180,18 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
     else {
         selectorsObject.keyButtonLongText.classList.add('hide');
     }
-    
+
     if (selectorsObject.keyBoxVerticalList.children.length === 0) {
         for (let i = 0; i < countListsBox; i++) {
 
             selectorsObject.keyBoxVerticalList.append(mainObj[century].tegForPersonList[i]);
         }
     }
-    
     if (countListsBox > 1) selectorsObject.keyBottomVerticalList[1].style.display="block";
-    
     if (countListsBox === 1)  {
         selectorsObject.keyBottomVerticalList[1].style.display="none";
         selectorsObject.keyBottomVerticalList[0].style.display="none";
     }
-    
     for (let i = 0; i < selectorsObject.keyCenturyButton.length; i++) {
 
         if (selectorsObject.keyCenturyButton[i].value === century) {
@@ -220,29 +219,31 @@ let clickToButtonCentury = (currentCentury, selectorsObject, mainObject) => {
             selectorsObject.keyTextArticleWrapper.removeAttribute('style');
             selectorsObject.keyButtonLongText.classList.remove('long-text-after');
             selectorsObject.keyButtonLongText.classList.add('long-text-before');
-            selectorsObject.keyButtonLongText.innerHTML = 'читать далее';
+            selectorsObject.keyButtonLongText.innerHTML = language === 0 ? 'читать далее' : 'read more';
 
             if (heightWrapperTextArticle > heightBoxTextArticle) {
 
                 selectorsObject.keyButtonLongText.classList.remove('hide');
             }
             else {
-                
                 selectorsObject.keyButtonLongText.classList.add('hide');
             }
 
             selectorsObject.keyBoxVerticalList.innerHTML = '';
             selectorsObject.keyBoxVerticalList.style.left = 0;
+
             let newCentury = e.target.value;
+
             id = {
                 0: newCentury,
                 1: mainObj[newCentury].names[0].id,
             };
-            
+
             selectorsObject.keyButtonGallery.dataset.century = id[0];
             selectorsObject.keyButtonGallery.dataset.id = id[1];
 
             for (let i = 0; i < selectorsObject.keyBottomVerticalList.length; i++ ) {
+
                 if (selectorsObject.keyBottomVerticalList[i].value === 'left') {
 
                     selectorsObject.keyBottomVerticalList[i].style.display = 'none';
@@ -302,15 +303,11 @@ let showLongText = (arraySelectors) => {
         let $textWrapper = this.previousElementSibling.children[0];
         let heightWrapper = $textWrapper.offsetHeight;
         let heightDifference = (heightWrapper) - heightTextBox;
-
-
         $textWrapper.classList.remove('no-transition');
-
 
         if (heightDifference > 0 && heightDifference < heightTextBox && !$textWrapper.style.top) {
 
             $textWrapper.style.top = -heightDifference + 'px';
-
 
             if (heightDifference < heightTextBox) {
 
@@ -358,10 +355,10 @@ let toggleButtonForText = ($textWrapper, button) => {
         $textWrapper.removeAttribute('style');
         button.classList.remove('long-text-after');
         button.classList.add('long-text-before');
-        button.innerHTML = 'читать далее';
+        button.innerHTML = language === 0 ? 'читать далее' : 'read more';
     }
     else {
-        button.innerHTML = 'к началу';
+        button.innerHTML = language === 0 ? 'к началу' :'by the start';
         button.classList.remove('long-text-before');
         button.classList.add('long-text-after');
     }
@@ -423,23 +420,17 @@ let clickToPersonList = (e) => {
     let mainBoxArticle = target.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling.previousElementSibling;
 
     let mainBoxArticleChildren = mainBoxArticle.children;
-
     let buttonLongArticle = mainBoxArticleChildren[2];
     let textBoxArticle = mainBoxArticleChildren[1];
-
     let textBoxArticleWrapper = textBoxArticle.children[0];
-
-
-
     let heightWrapperTextArticle = textBoxArticleWrapper.offsetHeight;
     let heightBoxTextArticle = textBoxArticle.offsetHeight;
 
     textBoxArticleWrapper.classList.add('no-transition');
     textBoxArticleWrapper.removeAttribute('style');
-
     buttonLongArticle.classList.remove('long-text-after');
     buttonLongArticle.classList.add('long-text-before');
-    buttonLongArticle.innerHTML = 'читать далее';
+    buttonLongArticle.innerHTML = language === 0 ? 'читать далее' : 'read more';
 
     if (heightWrapperTextArticle > heightBoxTextArticle) {
 
@@ -510,15 +501,5 @@ let autoAnimatePersonsList = (button, countBox, century) => {
                 clearTimeout(delSetTime)
             }, 800);
         }
-        // if (transportBox.offsetLeft < 0) {
-        //     console.log(transportBox.offsetLeft);
-        //     transportBox.style.left = (transportBox.offsetLeft - boxListWidth * 2) + 'px';
-        //
-        //     let delSetTime = setTimeout(() => {
-        //         rightButton.style.display = 'none';
-        //         clearTimeout(delSetTime)
-        //     }, 800);
-        // }
     }
-
 };

@@ -3,7 +3,6 @@
     let id;
     let requestForFolder;
     let nameAndDate = {};
-    let flag = true;
     let delay = false;
     let objectBoxes;
     let mainObj = {};
@@ -11,12 +10,36 @@
     let seconds = 0;
     let language = 0;
 
-    if (!flag) {
+    let flagData = () => {
+        if (window.location.href.indexOf('?') !== -1) {
+            let addressPage = window.location.href;
+
+            return addressPage.slice(addressPage.indexOf('?') + 1);
+        }
+        else{
+            return true;
+        }
+    };
+
+    let flag = flagData();
+
+    console.log(typeof flag);
+
+    if (flag === 'false') {
+        console.log(1111);
         language = 1;
     }
     else {
         language = 0;
     }
+
+    console.log(language);
+
+    // let locationAddress = window.location.href;
+    // let onlyHref = locationAddress.slice(0,locationAddress.indexOf('?'));
+    // let newHref = onlyHref + '?' + flag;
+
+
 
 
     let domLoaded = () => {
@@ -26,6 +49,8 @@
 
         let mainMenuTitlePage = new CreatorMainMenu(mainMenu.objectSlider, pathAll, language);
 
+        let headerTitle = document.querySelectorAll('.header__title');
+        let footerTitle = document.querySelector('.footer__title');
         let mainBox = document.querySelector('.main');
         let textShortBio = document.querySelector('.main__short-biography');
         let imgMainBox = document.querySelector('.main__img-main');
@@ -41,6 +66,9 @@
         let buttonFooterMenu = document.querySelectorAll('.footer__menu-elem');
         let buttonGallery = document.querySelector('.button-gallery');
         let buttonLongText = document.querySelector('.button-long-text');
+        let buttonHome = document.querySelector('.button-go-home');
+        let footerMenuElem = document.querySelectorAll('.footer__menu-elem');
+        let languageButton = document.querySelectorAll('.language-box__ru-button');
 
 
         let arraySelectors = {
@@ -59,7 +87,35 @@
             keyFooterMenu: footerMenu,
             keyButtonLongText: buttonLongText,
             keyTextArticleWrapper: textArticleWrapper,
+            keyButtonHome: buttonHome,
+            keyHeaderTitle: headerTitle,
+            keyFooterTitle: footerTitle,
+            keyFooterMenuElem: footerMenuElem,
+            keyLanguageButton: languageButton,
         };
+
+
+        for (let i = 0; i < arraySelectors.keyLanguageButton.length; i++) {
+
+            arraySelectors.keyLanguageButton[i].addEventListener('click', () => {
+
+                if (arraySelectors.keyLanguageButton[i].value === 'true'){
+                    flag = true;
+                }
+                if (arraySelectors.keyLanguageButton[i].value === 'false'){
+                    flag = false;
+                }
+
+                let locationAddress = window.location.href;
+                let onlyHref = locationAddress.slice(0,locationAddress.indexOf('?'));
+                let newHref = onlyHref + '?' + flag;
+                document.location.assign(newHref);
+// document.location.reload();
+                // begin(arraySelectors, mainObj, id);
+                // console.log(flag);
+            });
+        }
+
 
         objectBoxes = arraySelectors;
 
@@ -74,15 +130,16 @@
 
         showLongText(arraySelectors);
 
+        arraySelectors.keyButtonHome.addEventListener('click', () => {
+
+            arraySelectors.keyBoxVerticalList.classList.remove('no-transition');
+            arraySelectors.keyTitlePageBox.removeAttribute('style');
+            arraySelectors.keyBoxVerticalList.removeAttribute('style');
+        });
 //управление возвращением к первой странице
         document.addEventListener('click', (e) => {
 
-            if (e.target.parentElement.dataset.home === 'home' || e.target.parentElement.parentElement.dataset.home === 'home' || e.target.dataset.home === 'home'){
 
-                arraySelectors.keyBoxVerticalList.classList.remove('no-transition');
-                arraySelectors.keyTitlePageBox.removeAttribute('style');
-                arraySelectors.keyBoxVerticalList.removeAttribute('style');
-            }
 
             clickNumber = true;
 
@@ -148,6 +205,25 @@
             $buttonShowGallery.innerHTML = '<svg class="icon_gallery" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 453.92 452.83">\n' +
                 '            <use xlink:href="assets/img/sprite-icon-svg.svg#icon_gallery"></use>\n' +
                 '        </svg>';
+
+
+            for (let i = 0; i < arraySelectors.keyHeaderTitle.length; i++) {
+                arraySelectors.keyHeaderTitle[i].innerHTML = language === 0 ? 'Настоятели Кирилло-Белозерского монастыря' : 'Abbot of the Kirillo-Belozersky Monastery';
+            }
+            arraySelectors.keyFooterTitle.innerHTML = language === 0 ? 'СОБЫТИЯ ЭТОГО ПЕРИОДА' : 'EVENTS OF THIS PERIOD';
+
+            for (let i = 0; i < arraySelectors.keyFooterMenuElem.length; i++) {
+
+                if (+arraySelectors.keyFooterMenuElem[i].dataset.type === 1) {
+                    arraySelectors.keyFooterMenuElem[i].innerHTML = language === 0 ? 'в монастыре' : 'in the monastery';
+                }
+                else if (+arraySelectors.keyFooterMenuElem[i].dataset.type === 2) {
+                    arraySelectors.keyFooterMenuElem[i].innerHTML = language === 0 ? 'в российской истории' : 'in Russian history';
+                }
+                else if (+arraySelectors.keyFooterMenuElem[i].dataset.type === 3) {
+                    arraySelectors.keyFooterMenuElem[i].innerHTML = language === 0 ? 'в мировой истории' : 'in world history';
+                }
+            }
 
             $buttonShowGallery.addEventListener('click', showSlider);
 
