@@ -23,24 +23,12 @@
 
     let flag = flagData();
 
-    console.log(typeof flag);
-
     if (flag === 'false') {
-        console.log(1111);
         language = 1;
     }
     else {
         language = 0;
     }
-
-    console.log(language);
-
-    // let locationAddress = window.location.href;
-    // let onlyHref = locationAddress.slice(0,locationAddress.indexOf('?'));
-    // let newHref = onlyHref + '?' + flag;
-
-
-
 
     let domLoaded = () => {
 
@@ -97,6 +85,15 @@
 
         for (let i = 0; i < arraySelectors.keyLanguageButton.length; i++) {
 
+            arraySelectors.keyLanguageButton[i].parentElement.classList.remove('language-box__elem_activ');
+
+            if (language === 1 && arraySelectors.keyLanguageButton[i].value === 'false'){
+                arraySelectors.keyLanguageButton[i].parentElement.classList.add('language-box__elem_activ');
+            }
+            else if (language === 0 && arraySelectors.keyLanguageButton[i].value === 'true') {
+                arraySelectors.keyLanguageButton[i].parentElement.classList.add('language-box__elem_activ');
+            }
+
             arraySelectors.keyLanguageButton[i].addEventListener('click', () => {
 
                 if (arraySelectors.keyLanguageButton[i].value === 'true'){
@@ -110,12 +107,8 @@
                 let onlyHref = locationAddress.slice(0,locationAddress.indexOf('?'));
                 let newHref = onlyHref + '?' + flag;
                 document.location.assign(newHref);
-// document.location.reload();
-                // begin(arraySelectors, mainObj, id);
-                // console.log(flag);
             });
         }
-
 
         objectBoxes = arraySelectors;
 
@@ -138,8 +131,6 @@
         });
 //управление возвращением к первой странице
         document.addEventListener('click', (e) => {
-
-
 
             clickNumber = true;
 
@@ -314,9 +305,20 @@
                         buildFullMainObject();
                         margeObject();
                         clearInterval(timer1);
-                        let mergeAll = margeObjectToo(separatorStringText(allText), mainObj);
-                        document.addEventListener('DOMContentLoaded', domLoaded());
-                        return mergeAll;
+
+                        let textObject = separatorStringText(allText);
+
+                            let timer2 = setInterval(() => {
+
+                                if(textObject.state === 'ok') {
+
+                                    let mergeAll = margeObjectToo(textObject.text, mainObj);
+                                    document.addEventListener('DOMContentLoaded', domLoaded());
+                                    clearInterval(timer2);
+                                    return mergeAll;
+                                }
+
+                            }, 5);
                     }}, 5);
                     clearInterval(timer);
             }}, 5);

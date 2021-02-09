@@ -146,9 +146,8 @@ let separatorStringText = (allText) => {
             }
         }
     }
-    // console.log(textObject);
-    // return;
-    return textObject;
+
+    return {text: textObject, state: 'ok',};
 };
 
 let displayContent = (century, mainObj, id, selectorsObject) => {
