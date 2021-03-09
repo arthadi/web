@@ -1,21 +1,36 @@
-let getData = (addres) => {
+// let getData = (addres) => {
+//
+//     if(navigator.appName.search('Microsoft')>-1) {
+//         requestForFolder = new ActiveXObject('MSXML2.XMLHTTP');
+//     }
+//     else {
+//         requestForFolder = new XMLHttpRequest();
+//     }
+//     requestForFolder.open('get', addres, true);
+//     requestForFolder.onreadystatechange = () => {
+//
+//         if(requestForFolder.readyState === 4) {
+//             allText = requestForFolder.responseText;
+//             delay = true;
+//         }
+//     };
+//     requestForFolder.send(null);
+// };
 
-    if(navigator.appName.search('Microsoft')>-1) {
-        requestForFolder = new ActiveXObject('MSXML2.XMLHTTP');
-    }
-    else {
-        requestForFolder = new XMLHttpRequest();
-    }
-    requestForFolder.open('get', addres, true);
-    requestForFolder.onreadystatechange = () => {
+let getData =  (addres) => {
 
-        if(requestForFolder.readyState === 4) {
-            allText = requestForFolder.responseText;
-            delay = true;
-        }
-    };
-    requestForFolder.send(null);
+    fetch(addres)
+        .then(response => response.text())
+        .then(result =>
+
+            allText = result
+        )
+        .then(() =>
+                delay = true
+        )
+        .catch(error => console.log(error.message))
 };
+
 // убираем перенос строк
 let deleteLineBreak = (string) => {
     return string.replace(/\r?\n/g, "");
@@ -155,10 +170,24 @@ let displayContent = (century, mainObj, id, selectorsObject) => {
     let countListsBox = personsListCreator(century, mainObj);
     let personObject = getPersonData(century, id, mainObj);
 
+    //TODO внимание к кнопке галлереи
+    if (Object.keys(personObject.galleryImgData).length === 0) {
+        selectorsObject.keyButtonGallery.classList.add('hide');
+    }
+    else {
+        selectorsObject.keyButtonGallery.classList.remove('hide');
+    }
+
     selectorsObject.keyShortBio.innerHTML = personObject.shortBio[0][language];
     selectorsObject.keyTextArticleBox.innerHTML = personObject.mainText[0][language];
     $(selectorsObject.keyTextArticleBox).hyphenate();
     selectorsObject.keyTextHistoryBox.innerHTML = personObject.history[0][language];
+
+    for (let j = 0; j < selectorsObject.keyButtonFooterMenu.length; j++) {
+
+        selectorsObject.keyButtonFooterMenu[j].classList.remove('footer__menu-elem_active');
+    }
+    selectorsObject.keyButtonFooterMenu[0].classList.add('footer__menu-elem_active');
     selectorsObject.keyImgMainBox.setAttribute('src', 'assets/img/' + personObject.mainImgData.nameFile);
     selectorsObject.keyFooterMenu.dataset.id = id;
     selectorsObject.keyFooterMenu.dataset.century = century;

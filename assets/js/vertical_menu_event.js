@@ -10,7 +10,6 @@ let clickToButtonList = (buttonVariable, century) => {
             let countBoxList = Object.keys(mainObj[e.target.dataset.century].tegForPersonList).length;
             let boxListWidth = mainObj[e.target.dataset.century].tegForPersonList[0].offsetWidth + 40;
             let transportBox = buttonVariable.keyBottomVerticalList[i].nextSibling.parentElement.children[1].children[0];
-
             transportBox.classList.remove('no-transition');
 
             if(+countBoxList === 2 && valueButton === 'right') {

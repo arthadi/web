@@ -138,13 +138,13 @@
 
                 let setName = setTimeout(function tick(){
 
-                    if (seconds < 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && clickNumber) {
+                    if (seconds < 300000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && clickNumber) {
                         seconds = 0;
                         clickNumber = false;
                         clearTimeout(setName);
                     }
 
-                    if (seconds === 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
+                    if (seconds === 300000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
                         arraySelectors.keyTitlePageBox.style.left = 0 + 'px';
                         let timeSliderPage = setTimeout( () => {
 
@@ -159,7 +159,7 @@
                         clearTimeout(setName);
                         return;
                     }
-                    if (seconds === 60000 && +arraySelectors.keyTitlePageBox.style.left === 0 && !clickNumber) {
+                    if (seconds === 300000 && +arraySelectors.keyTitlePageBox.style.left === 0 && !clickNumber) {
                         arraySelectors.keyTitlePageBox.style.left = 0 + 'px';
                         let timeSliderPage = setTimeout( () => {
 
@@ -174,7 +174,7 @@
                         clearTimeout(setName);
                         return;
                     }
-                    if (seconds < 60000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
+                    if (seconds < 300000 && +arraySelectors.keyTitlePageBox.style.left !== 0 && !clickNumber) {
                         let number = seconds;
                         number = number + 1000;
                         seconds = number;
@@ -227,6 +227,7 @@
                 if(arraySelectors.keyTitleButton[i]) {
 
                     arraySelectors.keyTitleButton[i].addEventListener('click', function() {
+
                         let dataTape = this.value;
                         id = stringDivider(dataTape,'|||');
                         let statePage = false;
@@ -276,8 +277,8 @@
     };
 
     let getFirstText = () => {
-        getData('assets/text/nameFiles.txt');
 
+        getData('assets/text/nameFiles.txt');
         //функция задержки обращения к глобальной переменной pathAll
         let repetition = setInterval(() => {
 
@@ -289,12 +290,13 @@
                     allText = '';
                     delay = true;
                     clearInterval(repetition);
-                }}}, 5);
+                }
+            }
+        }, 5);
     };
 
-    let getTooText = (firstText,) => {
+    let getTooText = () => {
         let timer = setInterval(() => {
-
             if(delay){
                 delay = false;
                 getData('assets/text/1.txt');
@@ -305,29 +307,25 @@
                         buildFullMainObject();
                         margeObject();
                         clearInterval(timer1);
-
                         let textObject = separatorStringText(allText);
 
                             let timer2 = setInterval(() => {
 
-                                if(textObject.state === 'ok') {
+                                if (textObject.state === 'ok') {
 
                                     let mergeAll = margeObjectToo(textObject.text, mainObj);
                                     document.addEventListener('DOMContentLoaded', domLoaded());
                                     clearInterval(timer2);
                                     return mergeAll;
                                 }
-
-                            }, 5);
-                    }}, 5);
-                    clearInterval(timer);
-            }}, 5);
+                        }, 5);
+                }}, 5);
+            clearInterval(timer);
+        }}, 5);
     };
 
-    getTooText(getFirstText());
-
-
-nameAndDate = {};
+    getFirstText();
+    getTooText();
 
     let getNameAndDate = (mainObj) => {
 

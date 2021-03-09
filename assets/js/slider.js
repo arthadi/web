@@ -1,84 +1,3 @@
-// const galleryImgData = {
-//     0: {
-//         0: 'Икона преподобного Кирилла Белозерского. Период создания XVI век. Относится к московской школе иконописи.',
-//         1: 'Icon',
-//         nameFile: 'Kirill.jpg',
-//     },
-//     1: {
-//         0: 'Царские врата',
-//         1: 'King gate',
-//         nameFile: 'Icon_Kirill.jpg',
-//     },
-//     2: {
-//         0: 'Царские врата',
-//         1: 'King gate',
-//         nameFile: 'Sen.jpg',
-//     },
-//     3: {
-//         0: 'Царские врата',
-//         1: 'King gate',
-//         nameFile: 'Sen.jpg',
-//     },
-//     4: {
-//         0: 'Царские врата',
-//         1: 'King gate',
-//         nameFile: 'Icon_Kirill.jpg',
-//     },
-//     5: {
-//         0: 'Икона преподобного Кирилла Белозерского. Период создания XVI век. Относится к московской школе иконописи.',
-//         1: 'Icon',
-//         nameFile: 'Kirill.jpg',
-//     },
-    // 6: {
-    //     0: 'Царские врата',
-    //     1: 'King gate',
-    //     nameFile: 'Sen.jpg',
-    // },
-    // 7: {
-    //     0: 'Царские врата',
-    //     1: 'King gate',
-    //     nameFile: 'Icon_Kirill.jpg',
-    // },
-    // 8: {
-    //     0: 'Царские врата',
-    //     1: 'King gate',
-    //     nameFile: 'Sen.jpg',
-    // },
-    // 9: {
-    //     0: 'Икона преподобного Кирилла Белозерского. Период создания XVI век. Относится к московской школе иконописи.',
-    //     1: 'Icon',
-    //     nameFile: 'Kirill.jpg',
-    // },
-    // 10: {
-    //     0: 'Икона преподобного Кирилла Белозерского. Период создания XVI век. Относится к московской школе иконописи.',
-    //     1: 'Icon',
-    //     nameFile: 'Kirill.jpg',
-    // },
-    // 11: {
-    //     0: 'Царские врата',
-    //     1: 'King gate',
-    //     nameFile: 'Sen.jpg',
-    // },
-    // 12: {
-    //     0: 'Царские врата',
-    //     1: 'King gate',
-    //     nameFile: 'Icon_Kirill.jpg',
-    // },
-    // 13: {
-    //     0: 'Царские врата',
-    //     1: 'King gate',
-    //     nameFile: 'Sen.jpg',
-    // },
-    // 14: {
-    //     0: 'Икона преподобного Кирилла Белозерского. Период создания XVI век. Относится к московской школе иконописи.',
-    //     1: 'Icon',
-    //     nameFile: 'Kirill.jpg',
-    // },
-// };
-
-// language = 0;
-
-
 
 class ParametersHtmlSlider {
 
@@ -200,8 +119,13 @@ class CreatorSlider {
     }
 
     showPictInTape() {
-        // let tapeBox =
+
         if (this.countPictInTape >= this.countPictures) {
+
+            if (this.countPictures === 1) {
+                this.slider.targetAllSlider.children.targetBoxTape.element.classList.add('hide');
+                return;
+            }
             this.slider.targetAllSlider.children.targetBoxTape.children.targetTapePictures.element.style.width = this.widthPicture * this.countPictures + 'px';
         }
         else {
@@ -215,7 +139,6 @@ class CreatorSlider {
         if (typeof pathToClass === 'object') {
 
             for (let j = 0; j < pathToClass.length; j++) {
-
                 pathToElem[index].classList.add(pathToClass[j]);
             }
         }
@@ -669,7 +592,10 @@ class CreatorSlider {
                     }
                     if (!this.imgData[1]) {
 
-                        object[indexKey].element.classList.add('hide');
+                        if (object[indexKey].element.dataset.js !== 'buttonClose') {
+
+                            object[indexKey].element.classList.add('hide');
+                        }
                     }
                     if (!this.imgData[this.countPictInTape] && object[indexKey].element.dataset.js === 'buttonTapeRight') {
 
