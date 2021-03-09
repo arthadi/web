@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no,date=no,address=no,e-mail=no,url=no">
+    <link rel="preload" href="assets/font/fp-export-1527600045/Ubuntu-L.woff" as="font" type="font/woff" crossorigin>
+    <link rel="stylesheet" href="assets/css/font.css">
+    <link rel="stylesheet" href="assets/css/style_admin.css">
+    <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">-->
+    <script defer src="assets/js/adminka.js"></script>
+</head>
+<body>
+<div class="popup display_none">
+    <p class="warning">вы уверены что хотите удалить фотографию?</p>
+    <button class="remove cancel-remove-pict" type="button">отменить</button>
+    <button class="remove remove-pict" type="button">удалить</button>
+</div>
+<div class="popup-attention display_none">
+    <p class="warning">заполните поля для текста</p>
+    <button class="attention" type="button">продолжить</button>
+</div>
+<div class="all_content">
+    <ul class="person__list">
+    </ul>
+    <div class="person_current_list display_none">
+        <h3 class="person-title">Кирилл</h3>
+        <h4 class="title_section">фото статьи</h4>
+        <button class="add-content main-photo display_none" type="button" data-command="addpict"
+                data-state="textpict">замените шаблонное
+            изображение на
+            фото к статье</button>
+        <div class="box_current_section">
+            <img class="person-img-main" src="" alt="icon">
+            <div class="box_btn_main_pict">
+            <button class="edit edit-first text-main-images" type="button" data-namefile="" data-command="edit"
+                    data-state="textpict">редактировать текст к фото статьи</button>
+            <button class="edit edit-first remove-main_pict" type="button" data-namefile="" data-command="remove"
+                    data-state="textpict">удалить фото</button>
+            </div>
+        </div>
+        <h4 class="title_section">фотографии галереи</h4>
+        <div class="gallery_pictures">
+            <button class="add-content gallery-photo" type="button" data-command="addpict"
+                    data-state="textgallery">добавить фото</button>
+            <ul class="box_current_section_gallery">
+            </ul>
+        </div>
+        <h4 class="title_section">тексты статьи и раздела событий</h4>
+        <div class="box_current_section">
+            <p class="article">В этом разделе доступно редактирование текстов:<br>
+                имени, даты, краткой биографии, статьи, элементов исторических событий </p>
+            <button class="edit edit-first" type="button" data-command="text" data-state="text">редактировать тексты</button>
+        </div>
+    </div>
+    <div class="person_main_pict_editor display_none">
+        <button class="go-to-back" type="button">вернуться к списку</button>
+        <h3 class="person-title">Редактирование картинки статьи</h3>
+        <form class="person__form-img" action="edit_main_pict.php" id="edit-main-pict" method="post">
+            <img class="img-edit" src="assets/img/icon_Kirill_01.jpg" alt="icon">
+            <uL class="data-img">
+                <li class="name-file li-margin">
+                    <p class="label-name-file">имя файла</p>
+                    <p class="person-name-file">15</p>
+                </li>
+                <li class="text-file li-margin">
+                    <label for="main-img-text-ru">текст для картинки (русский)</label>
+                    <textarea class="file-img__text-ru" id="main-img-text-ru" form="edit-main-pict" rows="6" cols="45"></textarea>
+                </li>
+                <li class="text-file li-margin">
+                    <label for="main-img-text-en">текст для картинки (английский)</label>
+                    <textarea class="file-img__text-en" id="main-img-text-en" form="edit-main-pict" rows="6" cols="45"></textarea>
+                </li>
+            </uL>
+            <button class="apply-changes__btn" form="edit-main-pict" type="submit" aria-label="delete">применить изменения</button>
+        </form>
+    </div>
+    <div class="person_pict_loader display_none">
+        <button class="go-to-back" type="button">вернуться к списку</button>
+        <h3 class="person-title">Добавление изображений</h3>
+        <form class="person__form-img" enctype="multipart/form-data" id="add-main-pict" method="post">
+            <uL class="data-img no-margin">
+                <li class="loader">
+                    <label id="label-loader" class="person-title label-loader" for="loader-main-pict">загрузчик фото</label>
+                    <input id="loader-main-pict" class="loader-main-pict" name="pict" type="file" accept=".jpg, .jpeg">
+                    <button id="remove-load-pict" class="remove-load-pict display_none" type="button">отменить</button>
+                    <button id="send-load-pict" class="display_none" type="submit">отправить</button>
+                </li>
+                <li class="prevImgLi">
+                    <img id="new-main-pict" class="person-img-main" src="" alt="icon">
+                    <uL class="data-img">
+                        <li class="name-file li-margin">
+                            <p id="new-label-name-file" class="label-name-file">имя файла</p>
+                            <p id="new-name-main-pict" class="person-name-file"></p>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="new-main-img-text-ru">текст для картинки (русский)</label>
+                            <textarea class="new-file-img__text-ru" id="new-main-img-text-ru" form="edit-main-pict" rows="6" cols="45" placeholder="введите сюда текст который соответствует изображению на русском языке"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="new-main-img-text-en">текст для картинки (английский)</label>
+                            <textarea class="new-file-img__text-en" id="new-main-img-text-en" form="edit-main-pict" rows="6" cols="45"></textarea>
+                        </li>
+                    </uL>
+                </li>
+            </uL>
+        </form>
+    </div>
+    <div class="person_text_loader display_none">
+        <button class="go-to-back" type="button">вернуться к списку</button>
+        <h3 class="person-title">Управление текстами</h3>
+        <form class="person__form-img" enctype="multipart/form-data" id="edit-main-text" method="post">
+            <uL class="data-img no-margin">
+                <li class="prevImgLi">
+                    <uL class="data-img">
+                        <li class="text-file li-margin">
+                            <label for="date-text">дата</label>
+                            <textarea class="file-img__text-ru" id="date-text" form="edit-main-text" rows="3"
+                                      cols="30"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="name-text-ru">имя настоятеля монастыря (русский)</label>
+                            <textarea class="file-img__text-ru" id="name-text-ru" form="edit-main-text" rows="3"
+                                      cols="30"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="name-text-en">имя настоятеля монастыря монастыря (английский)</label>
+                            <textarea class="file-img__text-en" id="name-text-en" form="edit-main-text" rows="3"
+                                      cols="30"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="biography-text-ru">текст раздела события в истории монастыря (русский)</label>
+                            <textarea class="file-img__text-ru" id="biography-text-ru" form="edit-main-text" rows="10" cols="65"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="biography-text-en">текст раздела события в истории монастыря (английский)</label>
+                            <textarea class="file-img__text-en" id="biography-text-en" form="edit-main-text" rows="10" cols="65"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="main-text-ru">текст статьи (русский)</label>
+                            <textarea class="file-img__text-ru" id="main-text-ru" form="edit-main-text" rows="16" cols="75"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="main-text-en">текст статьи (английский)</label>
+                            <textarea class="file-img__text-en" id="main-text-en" form="edit-main-text" rows="16" cols="75"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="monastery-text-ru">текст раздела события в истории монастыря (русский)</label>
+                            <textarea class="file-img__text-ru" id="monastery-text-ru" form="edit-main-text" rows="10"
+                                      cols="65" data-type="incident"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="monastery-text-en">текст раздела события в истории монастыря (английский)</label>
+                            <textarea class="file-img__text-en" id="monastery-text-en" form="edit-main-text" rows="10"
+                                      cols="65" data-type="incident"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="russia-text-ru">текст раздела события в Российской истории (русский)</label>
+                            <textarea class="file-img__text-ru" id="russia-text-ru" form="edit-main-text" rows="10"
+                                      cols="65" data-type="incident"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="russia-text-en">текст раздела события в Российской истории (английский)</label>
+                            <textarea class="file-img__text-en" id="russia-text-en" form="edit-main-text" rows="10"
+                                      cols="65" data-type="incident"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="world-text-ru">текст раздела события в мировой истории (русский)</label>
+                            <textarea class="file-img__text-ru" id="world-text-ru" form="edit-main-text" rows="10"
+                                      cols="65" data-type="incident"></textarea>
+                        </li>
+                        <li class="text-file li-margin">
+                            <label for="world-text-en">текст раздела события в мировой истории (английский)</label>
+                            <textarea class="file-img__text-en" id="world-text-en" form="edit-main-text" rows="10"
+                                      cols="65" data-type="incident"></textarea>
+                        </li>
+                    </uL>
+                    <button class="apply-changes__btn" form="edit-main-text" type="button" aria-label="delete">применить
+                        изменения</button>
+                </li>
+            </uL>
+        </form>
+    </div>
+</div>
+</body>
+</html>

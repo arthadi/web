@@ -31,7 +31,7 @@
     <div class="sliderBox__container-pict" data-js="targetForPictures">
         <figure class="figure figure-slider" data-js="targetForPict" data-number="">
             <img src="" class="figure__img-slider" width="550"   alt="">
-            <figcaption class="figure__figcaption-slider">333</figcaption>
+            <figcaption class="figure__figcaption-slider"></figcaption>
         </figure>
     </div>
     <button class="sliderBox__button-slider sliderBox__button-slider_right" type="button" data-side="right" data-js="buttonRight" value=""></button>
@@ -50,8 +50,6 @@
                 data-js="buttonTapeRight"></button>
     </div>
 </div>
-
-
 <div class="title-page-box">
     <header class="header">
         <h1 class="header__title header__title_color">Настоятели Кирилло-Белозерского монастыря</h1>
@@ -67,7 +65,8 @@
     <nav class="nav-title">
         <ul class="nav-title__box" data-number="" data-js="columnList">
             <li class="nav-title__element" data-js="stringList">
-                <button class="nav-title__button" type="button" value="15|||1" data-js="buttonStringList">
+                <button class="nav-title__button" type="button" value="15|||1"
+                        data-js="buttonStringList">
                     <span class="nav-title__button-name" data-indent = "name"></span>
                     <span class="nav-title__button-date" data-indent = "date"></span>
                 </button>
@@ -79,8 +78,7 @@
     <h1 class="header__title">Настоятели Кирилло-Белозерского монастыря</h1>
 </header>
 <main class="main">
-    <h2 class="main__short-biography">
-    </h2>
+    <h2 class="main__short-biography"></h2>
     <article class="main__text-box">
         <div class="main__text-box_wrapper">
             <img class="main__img-main" src="" alt="pict">
@@ -88,13 +86,12 @@
         </div>
     </article>
     <button class="button-long-text long-text-before hide" type="button" data-home="text"> читать далее</button>
-
-    <button class="button-gallery" type="button" data-century="" data-id="">
+    <button class="button-gallery" type="button" aria-label="go-to-gallery" data-century="" data-id="">
         <svg class="icon_gallery" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 453.92 452.83">
             <use xlink:href="assets/img/sprite-icon-svg.svg#icon_gallery"></use>
         </svg>
     </button>
-    <button class="button-go-home" type="button" data-home="home">
+    <button class="button-go-home" type="button" aria-label="go-home" data-home="home">
         <svg class="icon_go-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 523 442">
             <use xlink:href="assets/img/sprite-icon-svg.svg#home"></use>
         </svg>
@@ -124,7 +121,7 @@
     <section class="footer__box">
         <h3 class="footer__title">СОБЫТИЯ ЭТОГО ПЕРИОДА</h3>
         <ul class="footer__menu" data-century="" data-id="">
-            <li class="footer__menu-elem footer__menu-elem_active" data-type="1">в монастыре</li>
+            <li class="footer__menu-elem" data-type="1">в монастыре</li>
             <li class="footer__menu-elem" data-type="2">в российской истории</li>
             <li class="footer__menu-elem" data-type="3">в мировой истории</li>
         </ul>
